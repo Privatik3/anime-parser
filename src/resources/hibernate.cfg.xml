@@ -24,8 +24,6 @@
         <mapping resource="DirectedEntity.hbm.xml"/>
         <mapping resource="GenresEntity.hbm.xml"/>
         <mapping class="anime.parser.domain.GenresEntity"/>
-        <mapping class="anime.parser.domain.ProductionEntity"/>
-        <mapping resource="ProductionEntity.hbm.xml"/>
         <mapping resource="ResourcesNameEntity.hbm.xml"/>
         <mapping class="anime.parser.domain.ResourcesNameEntity"/>
         <mapping resource="ScreenshotsEntity.hbm.xml"/>

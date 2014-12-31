@@ -1,6 +1,59 @@
 package anime.parser.parser;
 
-public class WorldArtParser {
+import anime.parser.domain.*;
+
+import java.util.List;
+
+public class WorldArtParser implements ParseAnime {
+    @Override
+    public List<AnimeGenreEntity> getParseAnimeInfoById(Integer animeId) {
+        return null;
+    }
+
+    @Override
+    public List<AnimeGenreEntity> getParseAnimeGenresById(Integer animeId) {
+        return null;
+    }
+
+    @Override
+    public List<AnimeResourcesEntity> animeResourcesesById(Integer animeId) {
+        return null;
+    }
+
+    @Override
+    public DirectedEntity directedByDirectedId(Integer animeId) {
+        return null;
+    }
+
+    @Override
+    public SecondNameEntity secondNameByOtherTitleId(Integer animeId) {
+        return null;
+    }
+
+    @Override
+    public StudioEntity studioByStudioId(Integer animeId) {
+        return null;
+    }
+
+    @Override
+    public AnimeTypesEntity animeTypesByAnimeTypeId(Integer animeId) {
+        return null;
+    }
+
+    @Override
+    public YearProductionEntity yearProductionByYearProductionId(Integer animeId) {
+        return null;
+    }
+
+    @Override
+    public List<ConnectionsEntity> connectionsesById(Integer animeId) {
+        return null;
+    }
+
+    @Override
+    public List<ScreenshotsEntity> screenshotsesById(Integer animeId) {
+        return null;
+    }
 
     /*public static String parseTitle(Document doc) {
         return doc.select("meta[name=description]").get(0).attr("content");
