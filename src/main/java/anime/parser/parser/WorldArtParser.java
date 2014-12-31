@@ -6,8 +6,17 @@ import java.util.List;
 
 public class WorldArtParser implements AnimeParser {
     @Override
-    public List<AnimeGenreEntity> getParseAnimeInfoById(Integer animeId) {
-        return null;
+    public AnimeInfo getParseAnimeInfoById(Integer animeId) {
+        AnimeInfo resualt = new AnimeInfo();
+
+        resualt.setMainImg("http://mainimg.jpg");
+        resualt.setMainTitle("Main title");
+        resualt.setTypeInfo("Type Info");
+        resualt.setAverage(5.0);
+        resualt.setRanced(5);
+        resualt.setVoted(5);
+
+        return resualt;
     }
 
     @Override
