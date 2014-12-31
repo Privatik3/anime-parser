@@ -1,17 +1,8 @@
 package anime.parser.parser;
 
-import anime.parser.anime.Anime;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-
 public class LogicParser {
 
-    public static Anime parseAnime(String anime_id) {
+    /*public static Anime parseAnime(String anime_id) {
 
         Anime anime = new Anime(Integer.parseInt(anime_id));
         Document docAnime = null, docPhoto = null;
@@ -68,5 +59,5 @@ public class LogicParser {
         }
 
         return anime;
-    }
+    } */
 }

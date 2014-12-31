@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="anime.parser.domain.YearProductionEntity" table="year_production" schema="" catalog="mydb">
+        <id name="id">
+            <column name="id" sql-type="int" not-null="true"/>
+        </id>
+        <property name="begin">
+            <column name="begin" sql-type="date" not-null="true"/>
+        </property>
+        <property name="ended">
+            <column name="ended" sql-type="date"/>
+        </property>
+        <set name="animesesById" inverse="true">
+            <key>
+                <column name="year_production_id" not-null="true"/>
+            </key>
+            <one-to-many not-found="ignore" class="anime.parser.domain.AnimesEntity"/>
+        </set>
+    </class>
+</hibernate-mapping>

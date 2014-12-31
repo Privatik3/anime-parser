@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/mydb</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">root</property>
+
+        <mapping class="anime.parser.domain.AnimeGenreEntity"/>
+        <mapping resource="AnimeGenreEntity.hbm.xml"/>
+        <mapping class="anime.parser.domain.AnimeResourcesEntity"/>
+        <mapping resource="AnimeResourcesEntity.hbm.xml"/>
+        <mapping resource="AnimeTypesEntity.hbm.xml"/>
+        <mapping class="anime.parser.domain.AnimeTypesEntity"/>
+        <mapping resource="AnimesEntity.hbm.xml"/>
+        <mapping class="anime.parser.domain.AnimesEntity"/>
+        <mapping resource="ConnectionsEntity.hbm.xml"/>
+        <mapping class="anime.parser.domain.ConnectionsEntity"/>
+        <mapping class="anime.parser.domain.DirectedEntity"/>
+        <mapping resource="DirectedEntity.hbm.xml"/>
+        <mapping resource="GenresEntity.hbm.xml"/>
+        <mapping class="anime.parser.domain.GenresEntity"/>
+        <mapping class="anime.parser.domain.ProductionEntity"/>
+        <mapping resource="ProductionEntity.hbm.xml"/>
+        <mapping resource="ResourcesNameEntity.hbm.xml"/>
+        <mapping class="anime.parser.domain.ResourcesNameEntity"/>
+        <mapping resource="ScreenshotsEntity.hbm.xml"/>
+        <mapping class="anime.parser.domain.ScreenshotsEntity"/>
+        <mapping resource="SecondNameEntity.hbm.xml"/>
+        <mapping class="anime.parser.domain.SecondNameEntity"/>
+        <mapping resource="StudioEntity.hbm.xml"/>
+        <mapping class="anime.parser.domain.StudioEntity"/>
+        <mapping resource="YearProductionEntity.hbm.xml"/>
+        <mapping class="anime.parser.domain.YearProductionEntity"/>
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hbm2ddl.auto">update</property> -->
+    </session-factory>
+</hibernate-configuration>

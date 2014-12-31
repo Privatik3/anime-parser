@@ -1,19 +1,8 @@
 package anime.parser.parser;
 
-import anime.parser.anime.AnimeConnection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class WorldArtParser {
 
-    public static String parseTitle(Document doc) {
+    /*public static String parseTitle(Document doc) {
         return doc.select("meta[name=description]").get(0).attr("content");
     }
 
@@ -130,5 +119,5 @@ public class WorldArtParser {
         }
 
         return "";
-    }
+    }*/
 }
