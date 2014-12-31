@@ -2,6 +2,7 @@ package anime.parser.parser;
 
 import anime.parser.domain.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WorldArtParser implements AnimeParser {
@@ -25,44 +26,45 @@ public class WorldArtParser implements AnimeParser {
     }
 
     @Override
-    public List<AnimeResourcesEntity> animeResourcesesById(Integer animeId) {
+    public List<AnimeResourcesEntity> getAnimeResourcesesById(Integer animeId) {
         return null;
     }
 
     @Override
-    public DirectedEntity directedByDirectedId(Integer animeId) {
+    public DirectedEntity getDirectedByDirectedId(Integer animeId) {
         return null;
     }
 
     @Override
-    public SecondNameEntity secondNameByOtherTitleId(Integer animeId) {
+    public SecondNameEntity getSecondNameByOtherTitleId(Integer animeId) {
         return null;
     }
 
     @Override
-    public StudioEntity studioByStudioId(Integer animeId) {
+    public StudioEntity getStudioByStudioId(Integer animeId) {
         return null;
     }
 
     @Override
-    public AnimeTypesEntity animeTypesByAnimeTypeId(Integer animeId) {
+    public AnimeTypesEntity getAnimeTypesByAnimeTypeId(Integer animeId) {
         return null;
     }
 
     @Override
-    public YearProductionEntity yearProductionByYearProductionId(Integer animeId) {
+    public YearProductionEntity getYearProductionByYearProductionId(Integer animeId) {
         return null;
     }
 
     @Override
-    public List<ConnectionsEntity> connectionsesById(Integer animeId) {
+    public List<ConnectionsEntity> getConnectionsesById(Integer animeId) {
         return null;
     }
 
     @Override
-    public List<ScreenshotsEntity> screenshotsesById(Integer animeId) {
+    public List<ScreenshotsEntity> getScreenshotsesById(Integer animeId) {
         return null;
     }
+
 
     /*public static String parseTitle(Document doc) {
         return doc.select("meta[name=description]").get(0).attr("content");
