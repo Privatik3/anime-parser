@@ -3,11 +3,15 @@ package anime.parser.general;
 
 import anime.parser.dao.AnimeDao;
 import anime.parser.dao.implement.AnimeDaoImpl;
+import anime.parser.parser.AnimeParser;
+import anime.parser.parser.WorldArtParser;
 
 public class Factory {
 
     public static Factory instance = new Factory();
-    public AnimeDao animeDao;
+    private AnimeDao animeDao;
+    private AnimeParser animeParser;
+
 
     private Factory() {}
 
@@ -19,5 +23,11 @@ public class Factory {
         if (animeDao == null)
             return animeDao = new AnimeDaoImpl();
         return animeDao;
+    }
+
+    public AnimeParser getAnimeParser() {
+        if (animeParser == null)
+            return animeParser = new WorldArtParser();
+        return animeParser;
     }
 }

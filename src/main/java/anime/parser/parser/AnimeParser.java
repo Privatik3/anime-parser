@@ -4,9 +4,9 @@ import anime.parser.domain.*;
 
 import java.util.List;
 
-public interface ParseAnime {
+public interface AnimeParser {
 
-    public List<AnimeGenreEntity> getParseAnimeInfoById(Integer animeId);
+    public AnimeInfo getParseAnimeInfoById(Integer animeId);
     public List<AnimeGenreEntity> getParseAnimeGenresById(Integer animeId);
     public List<AnimeResourcesEntity> animeResourcesesById(Integer animeId);
     public DirectedEntity directedByDirectedId(Integer animeId);

@@ -4,7 +4,7 @@ import anime.parser.domain.*;
 
 import java.util.List;
 
-public class WorldArtParser implements ParseAnime {
+public class WorldArtParser implements AnimeParser {
     @Override
     public List<AnimeGenreEntity> getParseAnimeInfoById(Integer animeId) {
         return null;
