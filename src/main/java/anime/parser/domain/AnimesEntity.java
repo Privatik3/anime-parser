@@ -221,4 +221,76 @@ public class AnimesEntity {
     public void setScreenshotsesById(Collection<ScreenshotsEntity> screenshotsesById) {
         this.screenshotsesById = screenshotsesById;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("ID: ").append(id).append("\n");
+        sb.append("Main title:\n");
+        sb.append("     ").append(mainTitle).append("\n");
+        sb.append("Other titles:\n");
+
+        for (OtherTitleEntity title : otherTitlesById) {
+            sb.append("     ").append(title.getName()).append("\n");
+        }
+
+        sb.append("Genres:\n");
+
+        for (AnimeGenreEntity genreEntity : animeGenresById){
+            sb.append("     ").append(genreEntity.getGenresByGenresId().getName()).append("\n");
+        }
+        sb.append("\n");
+
+        sb.append("Type: ").append(typeInfo).append("\n");
+
+        sb.append("Year: ").append("with ").append(yearProductionByYearProductionId.getBegin()).append(" by ")
+                .append(yearProductionByYearProductionId.getEnded()).append("\n");
+
+        sb.append("Directed:\n");
+        sb.append("     Name: ").append(directedByDirectedId.getName()).append("\n");
+        sb.append("     Wiki: ").append(directedByDirectedId.getResources()).append("\n");
+
+        sb.append("Average: ").append(average).append("\n");
+
+        sb.append("Ranced: ").append(ranced).append("\n");
+
+        sb.append("Voted: ").append(voted).append("\n");
+
+        sb.append("Review: ").append(review).append("\n");
+
+        sb.append("Studio: \n");
+        sb.append("     Name: ").append(studioByStudioId.getName()).append("\n");
+        sb.append("     Year: ").append(studioByStudioId.getYear()).append("\n");
+        sb.append("     Logo: ").append(studioByStudioId.getLogo()).append("\n");
+        sb.append("     Resources:\n");
+        sb.append("         URL: ");
+
+        for (StudioResoucesEntity resoucesEntity : studioByStudioId.getStudioResoucesesById()){
+            sb.append(resoucesEntity.getResourcesUrl()).append(" Name: ")
+                    .append(resoucesEntity.getResourcesNameByResourcesNameId().getName()).append("\n");
+        }
+
+        sb.append("Screenshots: ").append(screenshotsesById.size()).append("\n");
+
+
+        sb.append("Connections:\n");
+
+        for (ConnectionsEntity connectionsEntity : connectionsesById){
+            sb.append("     ").append(connectionsEntity.getIdConnection()).append(" ")
+                    .append(connectionsEntity.getText()).append("\n");
+        }
+
+        sb.append("AnimeResources:\n");
+
+        for (AnimeResourcesEntity animeResourcesEntity : animeResourcesesById){
+            sb.append("     Name: ").append(animeResourcesEntity.getResourcesNameByResourcesNameId().getName())
+                    .append(" URL: ").append(animeResourcesEntity.getUrl()).append("\n");
+        }
+
+        sb.append("-----------------------------------------------------------------------------------");
+
+        return sb.toString();
+    }
+
 }
