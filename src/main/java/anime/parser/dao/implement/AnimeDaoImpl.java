@@ -163,4 +163,21 @@ public class AnimeDaoImpl implements AnimeDao{
             if ((session != null) && (session.isOpen())) session.close();
         }
     }
+
+    @Override
+    public AnimesEntity getAnimesByID(Long getAnimesById) throws SQLException {
+            Session session = null;
+            AnimesEntity animesEntity = null;
+            try {
+                session = HibernateUtil.getSessionFactory().openSession();
+                animesEntity = (AnimesEntity) session.get(AnimesEntity.class, getAnimesById);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (session != null && session.isOpen()) {
+                    session.close();
+                }
+            }
+            return animesEntity;
+    }
 }
