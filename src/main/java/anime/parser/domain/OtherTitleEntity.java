@@ -8,7 +8,6 @@ public class OtherTitleEntity {
 
     private int id;
     private String name;
-    private int animesId;
     private AnimesEntity animesByAnimesId;
 
     @Id
@@ -31,16 +30,6 @@ public class OtherTitleEntity {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "animes_id", nullable = false, insertable = true, updatable = true)
-    public int getAnimesId() {
-        return animesId;
-    }
-
-    public void setAnimesId(int animesId) {
-        this.animesId = animesId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -48,7 +37,6 @@ public class OtherTitleEntity {
 
         OtherTitleEntity that = (OtherTitleEntity) o;
 
-        if (animesId != that.animesId) return false;
         if (id != that.id) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
 
@@ -59,7 +47,6 @@ public class OtherTitleEntity {
     public int hashCode() {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + animesId;
         return result;
     }
 

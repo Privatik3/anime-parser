@@ -11,12 +11,6 @@
         <property name="resourcesUrl">
             <column name="resources_url" sql-type="varchar"/>
         </property>
-        <property name="resourcesNameId">
-            <column name="resources_name_id" sql-type="int" not-null="true"/>
-        </property>
-        <property name="studioId">
-            <column name="studio_id" sql-type="int" not-null="true"/>
-        </property>
         <many-to-one name="resourcesNameByResourcesNameId" class="anime.parser.domain.ResourcesNameEntity">
             <column name="resources_name_id" not-null="true"/>
         </many-to-one>

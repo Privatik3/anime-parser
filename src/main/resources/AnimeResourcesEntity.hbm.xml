@@ -8,12 +8,6 @@
         <id name="id">
             <column name="id" sql-type="int" not-null="true"/>
         </id>
-        <property name="animesId">
-            <column name="animes_id" sql-type="int" not-null="true"/>
-        </property>
-        <property name="resourcesNameId">
-            <column name="resources_name_id" sql-type="int" not-null="true"/>
-        </property>
         <property name="url">
             <column name="url" sql-type="varchar"/>
         </property>

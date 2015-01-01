@@ -17,7 +17,7 @@ public interface AnimeDao {
     public void setConnectionsesById(ConnectionsEntity connectionsesById)throws SQLException;
     public void setScreenshotsesById(ScreenshotsEntity screenshotsesById)throws SQLException;
 
-    public AnimesEntity getAnimesByID(Long getAnimesById) throws SQLException;
+    public AnimesEntity getAnimesByID(Integer getAnimesById) throws SQLException;
 
 
 }

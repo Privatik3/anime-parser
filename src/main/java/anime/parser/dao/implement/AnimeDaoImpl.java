@@ -165,7 +165,7 @@ public class AnimeDaoImpl implements AnimeDao{
     }
 
     @Override
-    public AnimesEntity getAnimesByID(Long getAnimesById) throws SQLException {
+    public AnimesEntity getAnimesByID(Integer getAnimesById) throws SQLException {
             Session session = null;
             AnimesEntity animesEntity = null;
             try {

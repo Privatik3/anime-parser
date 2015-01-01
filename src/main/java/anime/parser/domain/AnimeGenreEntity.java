@@ -7,8 +7,6 @@ import javax.persistence.*;
 public class AnimeGenreEntity {
 
     private int id;
-    private int animesId;
-    private int genresId;
     private AnimesEntity animesByAnimesId;
     private GenresEntity genresByGenresId;
 
@@ -22,26 +20,6 @@ public class AnimeGenreEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "animes_id", nullable = false, insertable = true, updatable = true)
-    public int getAnimesId() {
-        return animesId;
-    }
-
-    public void setAnimesId(int animesId) {
-        this.animesId = animesId;
-    }
-
-    @Basic
-    @Column(name = "genres_id", nullable = false, insertable = true, updatable = true)
-    public int getGenresId() {
-        return genresId;
-    }
-
-    public void setGenresId(int genresId) {
-        this.genresId = genresId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,8 +27,6 @@ public class AnimeGenreEntity {
 
         AnimeGenreEntity that = (AnimeGenreEntity) o;
 
-        if (animesId != that.animesId) return false;
-        if (genresId != that.genresId) return false;
         if (id != that.id) return false;
 
         return true;
@@ -59,8 +35,6 @@ public class AnimeGenreEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + animesId;
-        result = 31 * result + genresId;
         return result;
     }
 

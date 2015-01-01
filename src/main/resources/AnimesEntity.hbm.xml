@@ -14,9 +14,6 @@
         <property name="mainTitle">
             <column name="main_title" sql-type="varchar" not-null="true"/>
         </property>
-        <property name="animeTypeId">
-            <column name="anime_type_id" sql-type="int" not-null="true"/>
-        </property>
         <property name="review">
             <column name="review" sql-type="mediumtext" length="16777215"/>
         </property>
@@ -28,15 +25,6 @@
         </property>
         <property name="voted">
             <column name="voted" sql-type="int"/>
-        </property>
-        <property name="studioId">
-            <column name="studio_id" sql-type="int" not-null="true"/>
-        </property>
-        <property name="directedId">
-            <column name="directed_id" sql-type="int" not-null="true"/>
-        </property>
-        <property name="yearProductionId">
-            <column name="year_production_id" sql-type="int" not-null="true"/>
         </property>
         <property name="typeInfo">
             <column name="type_info" sql-type="varchar" length="45" not-null="true"/>

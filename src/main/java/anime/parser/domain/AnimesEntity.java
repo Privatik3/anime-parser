@@ -10,14 +10,10 @@ public class AnimesEntity {
     private int id;
     private String mainImg;
     private String mainTitle;
-    private int animeTypeId;
     private String review;
     private Double average;
     private Integer ranced;
     private Integer voted;
-    private int studioId;
-    private int directedId;
-    private int yearProductionId;
     private String typeInfo;
     private Collection<AnimeGenreEntity> animeGenresById;
     private Collection<AnimeResourcesEntity> animeResourcesesById;
@@ -57,16 +53,6 @@ public class AnimesEntity {
 
     public void setMainTitle(String mainTitle) {
         this.mainTitle = mainTitle;
-    }
-
-    @Basic
-    @Column(name = "anime_type_id", nullable = false, insertable = true, updatable = true)
-    public int getAnimeTypeId() {
-        return animeTypeId;
-    }
-
-    public void setAnimeTypeId(int animeTypeId) {
-        this.animeTypeId = animeTypeId;
     }
 
     @Basic
@@ -110,36 +96,6 @@ public class AnimesEntity {
     }
 
     @Basic
-    @Column(name = "studio_id", nullable = false, insertable = true, updatable = true)
-    public int getStudioId() {
-        return studioId;
-    }
-
-    public void setStudioId(int studioId) {
-        this.studioId = studioId;
-    }
-
-    @Basic
-    @Column(name = "directed_id", nullable = false, insertable = true, updatable = true)
-    public int getDirectedId() {
-        return directedId;
-    }
-
-    public void setDirectedId(int directedId) {
-        this.directedId = directedId;
-    }
-
-    @Basic
-    @Column(name = "year_production_id", nullable = false, insertable = true, updatable = true)
-    public int getYearProductionId() {
-        return yearProductionId;
-    }
-
-    public void setYearProductionId(int yearProductionId) {
-        this.yearProductionId = yearProductionId;
-    }
-
-    @Basic
     @Column(name = "type_info", nullable = false, insertable = true, updatable = true, length = 45)
     public String getTypeInfo() {
         return typeInfo;
@@ -156,11 +112,7 @@ public class AnimesEntity {
 
         AnimesEntity that = (AnimesEntity) o;
 
-        if (animeTypeId != that.animeTypeId) return false;
-        if (directedId != that.directedId) return false;
         if (id != that.id) return false;
-        if (studioId != that.studioId) return false;
-        if (yearProductionId != that.yearProductionId) return false;
         if (average != null ? !average.equals(that.average) : that.average != null) return false;
         if (mainImg != null ? !mainImg.equals(that.mainImg) : that.mainImg != null) return false;
         if (mainTitle != null ? !mainTitle.equals(that.mainTitle) : that.mainTitle != null) return false;
@@ -177,14 +129,10 @@ public class AnimesEntity {
         int result = id;
         result = 31 * result + (mainImg != null ? mainImg.hashCode() : 0);
         result = 31 * result + (mainTitle != null ? mainTitle.hashCode() : 0);
-        result = 31 * result + animeTypeId;
         result = 31 * result + (review != null ? review.hashCode() : 0);
         result = 31 * result + (average != null ? average.hashCode() : 0);
         result = 31 * result + (ranced != null ? ranced.hashCode() : 0);
         result = 31 * result + (voted != null ? voted.hashCode() : 0);
-        result = 31 * result + studioId;
-        result = 31 * result + directedId;
-        result = 31 * result + yearProductionId;
         result = 31 * result + (typeInfo != null ? typeInfo.hashCode() : 0);
         return result;
     }

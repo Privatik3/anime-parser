@@ -8,7 +8,6 @@ public class ScreenshotsEntity {
 
     private int id;
     private String url;
-    private int animesId;
     private AnimesEntity animesByAnimesId;
 
     @Id
@@ -31,16 +30,6 @@ public class ScreenshotsEntity {
         this.url = url;
     }
 
-    @Basic
-    @Column(name = "animes_id", nullable = false, insertable = true, updatable = true)
-    public int getAnimesId() {
-        return animesId;
-    }
-
-    public void setAnimesId(int animesId) {
-        this.animesId = animesId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -48,7 +37,6 @@ public class ScreenshotsEntity {
 
         ScreenshotsEntity that = (ScreenshotsEntity) o;
 
-        if (animesId != that.animesId) return false;
         if (id != that.id) return false;
         if (url != null ? !url.equals(that.url) : that.url != null) return false;
 
@@ -59,7 +47,6 @@ public class ScreenshotsEntity {
     public int hashCode() {
         int result = id;
         result = 31 * result + (url != null ? url.hashCode() : 0);
-        result = 31 * result + animesId;
         return result;
     }
 

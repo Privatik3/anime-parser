@@ -8,8 +8,6 @@ public class StudioResoucesEntity {
 
     private int id;
     private String resourcesUrl;
-    private int resourcesNameId;
-    private int studioId;
     private ResourcesNameEntity resourcesNameByResourcesNameId;
     private StudioEntity studioByStudioId;
 
@@ -33,26 +31,6 @@ public class StudioResoucesEntity {
         this.resourcesUrl = resourcesUrl;
     }
 
-    @Basic
-    @Column(name = "resources_name_id", nullable = false, insertable = true, updatable = true)
-    public int getResourcesNameId() {
-        return resourcesNameId;
-    }
-
-    public void setResourcesNameId(int resourcesNameId) {
-        this.resourcesNameId = resourcesNameId;
-    }
-
-    @Basic
-    @Column(name = "studio_id", nullable = false, insertable = true, updatable = true)
-    public int getStudioId() {
-        return studioId;
-    }
-
-    public void setStudioId(int studioId) {
-        this.studioId = studioId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -61,8 +39,6 @@ public class StudioResoucesEntity {
         StudioResoucesEntity that = (StudioResoucesEntity) o;
 
         if (id != that.id) return false;
-        if (resourcesNameId != that.resourcesNameId) return false;
-        if (studioId != that.studioId) return false;
         if (resourcesUrl != null ? !resourcesUrl.equals(that.resourcesUrl) : that.resourcesUrl != null) return false;
 
         return true;
@@ -72,8 +48,6 @@ public class StudioResoucesEntity {
     public int hashCode() {
         int result = id;
         result = 31 * result + (resourcesUrl != null ? resourcesUrl.hashCode() : 0);
-        result = 31 * result + resourcesNameId;
-        result = 31 * result + studioId;
         return result;
     }
 

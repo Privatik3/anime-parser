@@ -9,7 +9,6 @@ public class ConnectionsEntity {
     private int id;
     private String idConnection;
     private String text;
-    private int animesId;
     private AnimesEntity animesByAnimesId;
 
     @Id
@@ -42,15 +41,6 @@ public class ConnectionsEntity {
         this.text = text;
     }
 
-    @Basic
-    @Column(name = "animes_id", nullable = false, insertable = true, updatable = true)
-    public int getAnimesId() {
-        return animesId;
-    }
-
-    public void setAnimesId(int animesId) {
-        this.animesId = animesId;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -59,7 +49,6 @@ public class ConnectionsEntity {
 
         ConnectionsEntity that = (ConnectionsEntity) o;
 
-        if (animesId != that.animesId) return false;
         if (id != that.id) return false;
         if (idConnection != null ? !idConnection.equals(that.idConnection) : that.idConnection != null) return false;
         if (text != null ? !text.equals(that.text) : that.text != null) return false;
@@ -72,7 +61,6 @@ public class ConnectionsEntity {
         int result = id;
         result = 31 * result + (idConnection != null ? idConnection.hashCode() : 0);
         result = 31 * result + (text != null ? text.hashCode() : 0);
-        result = 31 * result + animesId;
         return result;
     }
 

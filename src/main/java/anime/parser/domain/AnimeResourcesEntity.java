@@ -7,8 +7,6 @@ import javax.persistence.*;
 public class AnimeResourcesEntity {
 
     private int id;
-    private int animesId;
-    private int resourcesNameId;
     private String url;
     private AnimesEntity animesByAnimesId;
     private ResourcesNameEntity resourcesNameByResourcesNameId;
@@ -21,26 +19,6 @@ public class AnimeResourcesEntity {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @Basic
-    @Column(name = "animes_id", nullable = false, insertable = true, updatable = true)
-    public int getAnimesId() {
-        return animesId;
-    }
-
-    public void setAnimesId(int animesId) {
-        this.animesId = animesId;
-    }
-
-    @Basic
-    @Column(name = "resources_name_id", nullable = false, insertable = true, updatable = true)
-    public int getResourcesNameId() {
-        return resourcesNameId;
-    }
-
-    public void setResourcesNameId(int resourcesNameId) {
-        this.resourcesNameId = resourcesNameId;
     }
 
     @Basic
@@ -60,9 +38,7 @@ public class AnimeResourcesEntity {
 
         AnimeResourcesEntity that = (AnimeResourcesEntity) o;
 
-        if (animesId != that.animesId) return false;
         if (id != that.id) return false;
-        if (resourcesNameId != that.resourcesNameId) return false;
         if (url != null ? !url.equals(that.url) : that.url != null) return false;
 
         return true;
@@ -71,8 +47,6 @@ public class AnimeResourcesEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + animesId;
-        result = 31 * result + resourcesNameId;
         result = 31 * result + (url != null ? url.hashCode() : 0);
         return result;
     }

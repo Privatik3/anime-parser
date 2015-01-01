@@ -12,10 +12,11 @@ public class App {
 
         Factory factory = Factory.getInstance();
         AnimeDao animeDao = factory.getAnimeDao();
-        AnimeParser animeParser = factory.getAnimeParser();
+        //AnimeParser animeParser = factory.getAnimeParser();
+
+        AnimesEntity anime = animeDao.getAnimesByID(310);
 
 
-
-
+        System.out.println(anime);
     }
 }
