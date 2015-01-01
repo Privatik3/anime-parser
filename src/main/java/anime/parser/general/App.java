@@ -1,7 +1,7 @@
 package anime.parser.general;
 
 import anime.parser.dao.AnimeDao;
-import anime.parser.parser.AnimeInfo;
+import anime.parser.domain.AnimesEntity;
 import anime.parser.parser.AnimeParser;
 
 import java.sql.SQLException;
@@ -19,7 +19,7 @@ public class App {
 
         //Код получения инфы про аниме
 
-        AnimeInfo animeInfo = animeParser.getParseAnimeInfoById(animeId);
+        AnimesEntity animeInfo = animeParser.getParseAnimeInfoById(animeId);
         //....
 
         //Код сохранинея в базу ....

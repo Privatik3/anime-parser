@@ -6,18 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorldArtParser implements AnimeParser {
+
+
+
     @Override
-    public AnimeInfo getParseAnimeInfoById(Integer animeId) {
-        AnimeInfo resualt = new AnimeInfo();
-
-        resualt.setMainImg("http://mainimg.jpg");
-        resualt.setMainTitle("Main title");
-        resualt.setTypeInfo("Type Info");
-        resualt.setAverage(5.0);
-        resualt.setRanced(5);
-        resualt.setVoted(5);
-
-        return resualt;
+    public AnimesEntity getParseAnimeInfoById(Integer animeId) {
+        return null;
     }
 
     @Override
@@ -34,6 +28,8 @@ public class WorldArtParser implements AnimeParser {
     public YearProductionEntity getYearProductionByYearProductionId(Integer animeId) {
         return null;
     }
+
+
 
 
     /*public static String parseTitle(Document doc) {
