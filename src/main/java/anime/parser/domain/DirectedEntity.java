@@ -1,16 +1,14 @@
 package anime.parser.domain;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
-@Table(name = "directed", schema = "", catalog = "mydb")
+@Table(name = "directed", schema = "", catalog = "my_db")
 public class DirectedEntity {
 
     private int id;
     private String name;
     private String recours;
-    private Collection<AnimesEntity> animesesById;
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true)
@@ -62,14 +60,5 @@ public class DirectedEntity {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (recours != null ? recours.hashCode() : 0);
         return result;
-    }
-
-    @OneToMany(mappedBy = "directedByDirectedId")
-    public Collection<AnimesEntity> getAnimesesById() {
-        return animesesById;
-    }
-
-    public void setAnimesesById(Collection<AnimesEntity> animesesById) {
-        this.animesesById = animesesById;
     }
 }

@@ -21,22 +21,7 @@ public class WorldArtParser implements AnimeParser {
     }
 
     @Override
-    public List<AnimeGenreEntity> getParseAnimeGenresById(Integer animeId) {
-        return null;
-    }
-
-    @Override
-    public List<AnimeResourcesEntity> getAnimeResourcesesById(Integer animeId) {
-        return null;
-    }
-
-    @Override
     public DirectedEntity getDirectedByDirectedId(Integer animeId) {
-        return null;
-    }
-
-    @Override
-    public SecondNameEntity getSecondNameByOtherTitleId(Integer animeId) {
         return null;
     }
 
@@ -46,22 +31,7 @@ public class WorldArtParser implements AnimeParser {
     }
 
     @Override
-    public AnimeTypesEntity getAnimeTypesByAnimeTypeId(Integer animeId) {
-        return null;
-    }
-
-    @Override
     public YearProductionEntity getYearProductionByYearProductionId(Integer animeId) {
-        return null;
-    }
-
-    @Override
-    public List<ConnectionsEntity> getConnectionsesById(Integer animeId) {
-        return null;
-    }
-
-    @Override
-    public List<ScreenshotsEntity> getScreenshotsesById(Integer animeId) {
         return null;
     }
 
