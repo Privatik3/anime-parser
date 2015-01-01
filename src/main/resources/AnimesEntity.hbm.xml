@@ -14,6 +14,9 @@
         <property name="mainTitle">
             <column name="main_title" sql-type="varchar" not-null="true"/>
         </property>
+        <property name="animeTypeId">
+            <column name="anime_type_id" sql-type="int" not-null="true"/>
+        </property>
         <property name="review">
             <column name="review" sql-type="mediumtext" length="16777215"/>
         </property>
@@ -26,8 +29,59 @@
         <property name="voted">
             <column name="voted" sql-type="int"/>
         </property>
+        <property name="studioId">
+            <column name="studio_id" sql-type="int" not-null="true"/>
+        </property>
+        <property name="directedId">
+            <column name="directed_id" sql-type="int" not-null="true"/>
+        </property>
+        <property name="yearProductionId">
+            <column name="year_production_id" sql-type="int" not-null="true"/>
+        </property>
         <property name="typeInfo">
             <column name="type_info" sql-type="varchar" length="45" not-null="true"/>
         </property>
+        <many-to-one name="directedByDirectedId" class="anime.parser.domain.DirectedEntity">
+            <column name="directed_id" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="studioByStudioId" class="anime.parser.domain.StudioEntity">
+            <column name="studio_id" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="typesByAnimeTypeId" class="anime.parser.domain.TypesEntity">
+            <column name="anime_type_id" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="yearProductionByYearProductionId" class="anime.parser.domain.YearProductionEntity">
+            <column name="year_production_id" not-null="true"/>
+        </many-to-one>
+        <set name="animeGenresById" inverse="true">
+            <key>
+                <column name="animes_id" not-null="true"/>
+            </key>
+            <one-to-many not-found="ignore" class="anime.parser.domain.AnimeGenreEntity"/>
+        </set>
+        <set name="animeResourcesesById" inverse="true">
+            <key>
+                <column name="animes_id" not-null="true"/>
+            </key>
+            <one-to-many not-found="ignore" class="anime.parser.domain.AnimeResourcesEntity"/>
+        </set>
+        <set name="connectionsesById" inverse="true">
+            <key>
+                <column name="animes_id" not-null="true"/>
+            </key>
+            <one-to-many not-found="ignore" class="anime.parser.domain.ConnectionsEntity"/>
+        </set>
+        <set name="otherTitlesById" inverse="true">
+            <key>
+                <column name="animes_id" not-null="true"/>
+            </key>
+            <one-to-many not-found="ignore" class="anime.parser.domain.OtherTitleEntity"/>
+        </set>
+        <set name="screenshotsesById" inverse="true">
+            <key>
+                <column name="animes_id" not-null="true"/>
+            </key>
+            <one-to-many not-found="ignore" class="anime.parser.domain.ScreenshotsEntity"/>
+        </set>
     </class>
 </hibernate-mapping>

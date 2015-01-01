@@ -4,19 +4,16 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="anime.parser.domain.YearProductionEntity" table="year_production" schema="" catalog="my_db">
+    <class name="anime.parser.domain.TypesEntity" table="types" schema="" catalog="my_db">
         <id name="id">
             <column name="id" sql-type="int" not-null="true"/>
         </id>
-        <property name="begin">
-            <column name="begin" sql-type="date" not-null="true"/>
-        </property>
-        <property name="ended">
-            <column name="ended" sql-type="date"/>
+        <property name="name">
+            <column name="name" sql-type="varchar" not-null="true"/>
         </property>
         <set name="animesesById" inverse="true">
             <key>
-                <column name="year_production_id" not-null="true"/>
+                <column name="anime_type_id" not-null="true"/>
             </key>
             <one-to-many not-found="ignore" class="anime.parser.domain.AnimesEntity"/>
         </set>

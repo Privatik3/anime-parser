@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="anime.parser.domain.StudioResoucesEntity" table="studio_resouces" schema="" catalog="my_db">
+        <id name="id">
+            <column name="id" sql-type="int" not-null="true"/>
+        </id>
+        <property name="resourcesUrl">
+            <column name="resources_url" sql-type="varchar"/>
+        </property>
+        <property name="resourcesNameId">
+            <column name="resources_name_id" sql-type="int" not-null="true"/>
+        </property>
+        <property name="studioId">
+            <column name="studio_id" sql-type="int" not-null="true"/>
+        </property>
+        <many-to-one name="resourcesNameByResourcesNameId" class="anime.parser.domain.ResourcesNameEntity">
+            <column name="resources_name_id" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="studioByStudioId" class="anime.parser.domain.StudioEntity">
+            <column name="studio_id" not-null="true"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

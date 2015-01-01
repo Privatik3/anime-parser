@@ -14,11 +14,20 @@
         <property name="year">
             <column name="year" sql-type="date"/>
         </property>
-        <property name="resource">
-            <column name="resource" sql-type="varchar"/>
-        </property>
         <property name="logo">
             <column name="logo" sql-type="varchar" not-null="true"/>
         </property>
+        <set name="animesesById" inverse="true">
+            <key>
+                <column name="studio_id" not-null="true"/>
+            </key>
+            <one-to-many not-found="ignore" class="anime.parser.domain.AnimesEntity"/>
+        </set>
+        <set name="studioResoucesesById" inverse="true">
+            <key>
+                <column name="studio_id" not-null="true"/>
+            </key>
+            <one-to-many not-found="ignore" class="anime.parser.domain.StudioResoucesEntity"/>
+        </set>
     </class>
 </hibernate-mapping>

@@ -2,6 +2,7 @@ package anime.parser.domain;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Collection;
 
 @Entity
 @Table(name = "studio", schema = "", catalog = "my_db")
@@ -10,8 +11,9 @@ public class StudioEntity {
     private int id;
     private String name;
     private Date year;
-    private String resource;
     private String logo;
+    private Collection<AnimesEntity> animesesById;
+    private Collection<StudioResoucesEntity> studioResoucesesById;
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true)
@@ -44,16 +46,6 @@ public class StudioEntity {
     }
 
     @Basic
-    @Column(name = "resource", nullable = true, insertable = true, updatable = true, length = 255)
-    public String getResource() {
-        return resource;
-    }
-
-    public void setResource(String resource) {
-        this.resource = resource;
-    }
-
-    @Basic
     @Column(name = "logo", nullable = false, insertable = true, updatable = true, length = 255)
     public String getLogo() {
         return logo;
@@ -73,7 +65,6 @@ public class StudioEntity {
         if (id != that.id) return false;
         if (logo != null ? !logo.equals(that.logo) : that.logo != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (resource != null ? !resource.equals(that.resource) : that.resource != null) return false;
         if (year != null ? !year.equals(that.year) : that.year != null) return false;
 
         return true;
@@ -84,8 +75,25 @@ public class StudioEntity {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (year != null ? year.hashCode() : 0);
-        result = 31 * result + (resource != null ? resource.hashCode() : 0);
         result = 31 * result + (logo != null ? logo.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "studioByStudioId")
+    public Collection<AnimesEntity> getAnimesesById() {
+        return animesesById;
+    }
+
+    public void setAnimesesById(Collection<AnimesEntity> animesesById) {
+        this.animesesById = animesesById;
+    }
+
+    @OneToMany(mappedBy = "studioByStudioId")
+    public Collection<StudioResoucesEntity> getStudioResoucesesById() {
+        return studioResoucesesById;
+    }
+
+    public void setStudioResoucesesById(Collection<StudioResoucesEntity> studioResoucesesById) {
+        this.studioResoucesesById = studioResoucesesById;
     }
 }

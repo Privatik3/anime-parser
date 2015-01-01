@@ -2,6 +2,7 @@ package anime.parser.domain;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Collection;
 
 @Entity
 @Table(name = "year_production", schema = "", catalog = "my_db")
@@ -10,6 +11,7 @@ public class YearProductionEntity {
     private int id;
     private Date begin;
     private Date ended;
+    private Collection<AnimesEntity> animesesById;
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true)
@@ -61,5 +63,14 @@ public class YearProductionEntity {
         result = 31 * result + (begin != null ? begin.hashCode() : 0);
         result = 31 * result + (ended != null ? ended.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "yearProductionByYearProductionId")
+    public Collection<AnimesEntity> getAnimesesById() {
+        return animesesById;
+    }
+
+    public void setAnimesesById(Collection<AnimesEntity> animesesById) {
+        this.animesesById = animesesById;
     }
 }

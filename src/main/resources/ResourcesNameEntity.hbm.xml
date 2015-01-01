@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="anime.parser.domain.ResourcesNameEntity" table="resources_name" schema="" catalog="my_db">
+        <id name="id">
+            <column name="id" sql-type="int" not-null="true"/>
+        </id>
+        <property name="name">
+            <column name="name" sql-type="varchar"/>
+        </property>
+        <set name="animeResourcesesById" inverse="true">
+            <key>
+                <column name="resources_name_id" not-null="true"/>
+            </key>
+            <one-to-many not-found="ignore" class="anime.parser.domain.AnimeResourcesEntity"/>
+        </set>
+        <set name="studioResoucesesById" inverse="true">
+            <key>
+                <column name="resources_name_id" not-null="true"/>
+            </key>
+            <one-to-many not-found="ignore" class="anime.parser.domain.StudioResoucesEntity"/>
+        </set>
+    </class>
+</hibernate-mapping>

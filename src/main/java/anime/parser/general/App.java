@@ -15,14 +15,7 @@ public class App {
         AnimeParser animeParser = factory.getAnimeParser();
 
 
-        Integer animeId = 1;
 
-        //Код получения инфы про аниме
-
-        AnimesEntity animeInfo = animeParser.getParseAnimeInfoById(animeId);
-        //....
-
-        //Код сохранинея в базу ....
 
     }
 }

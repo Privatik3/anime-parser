@@ -11,8 +11,14 @@
         <property name="name">
             <column name="name" sql-type="varchar" length="45" not-null="true"/>
         </property>
-        <property name="recours">
-            <column name="recours" sql-type="varchar"/>
+        <property name="resources">
+            <column name="resources" sql-type="varchar"/>
         </property>
+        <set name="animesesById" inverse="true">
+            <key>
+                <column name="directed_id" not-null="true"/>
+            </key>
+            <one-to-many not-found="ignore" class="anime.parser.domain.AnimesEntity"/>
+        </set>
     </class>
 </hibernate-mapping>

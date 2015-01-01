@@ -1,17 +1,37 @@
 package anime.parser.parser;
 
 import anime.parser.domain.*;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class WorldArtParser implements AnimeParser {
 
-
+    private Document mainDoc;
+    private Integer lastDocId = 0;
 
     @Override
-    public AnimesEntity getParseAnimeInfoById(Integer animeId) {
-        return null;
+    public AnimesEntity getParseAnimeInfoById(Integer animeId) throws IOException {
+        AnimesEntity resualt = new AnimesEntity();
+        Document animeDoc = getAnimeDoc(animeId);
+
+        resualt.setId(animeId);
+        resualt.setMainTitle(parseTitle(animeDoc));
+        resualt.setMainImg(parseTitleImg(animeDoc));
+        resualt.setReview(parseReview(animeDoc));
+
+        String[] info = parseInfo(animeDoc);
+
+
+
+
+        return resualt;
     }
 
     @Override
@@ -29,10 +49,29 @@ public class WorldArtParser implements AnimeParser {
         return null;
     }
 
+    private Document getAnimeDoc(Integer animeId) throws IOException {
+
+        if (lastDocId.equals(animeId) ) {
+            return mainDoc;
+        } else {
+            IOException ex = null;
+            for (int i = 0; i < 5; i++) {
+                try {
+                    mainDoc = Jsoup.connect("http://www.world-art.ru/animation/animation.php?id=" + animeId.toString()).get();
+                    lastDocId = animeId;
+                    return mainDoc;
+                } catch (IOException e) {
+                    System.err.println("Не удалось закачать страницу id: " + animeId);
+                    System.out.println("Повторяю попытку ...");
+                    ex = e;
+                }
+            }
+            throw ex;
+        }
+    }
 
 
-
-    /*public static String parseTitle(Document doc) {
+    public static String parseTitle(Document doc) {
         return doc.select("meta[name=description]").get(0).attr("content");
     }
 
@@ -81,26 +120,24 @@ public class WorldArtParser implements AnimeParser {
         Elements loginform = doc.getElementsByClass("estimation");
         Element element = loginform.select("a[href=http://www.world-art.ru/country.php?id=2]").first().parent();
 
-        String all_info = element.toString().replaceAll("<br>", "�");
+        String all_info = element.toString().replaceAll("<br>", "@");
         all_info = Jsoup.parse(all_info).text();
 
-        String[] all_titles = all_info.split("�");
+        String[] all_titles = all_info.split("@");
         String[] resualt = new String[7];
 
         for (String s : all_titles) {
-            if (s.contains("������������:")) {
-                resualt[0] = s;
-            } else if (s.contains("����:")) {
+             if (s.contains("Тип:")) {
                 resualt[1] = s;
-            } else if (s.contains("���:")) {
+            } else if (s.contains("Режиссёр:")) {
                 resualt[2] = s;
-            } else if (s.contains("������:") || s.contains("��������:")) {
+            } else if (s.contains("Выпуск:") || s.contains("Премьера:")) {
                 resualt[3] = s;
-            } else if (s.contains("������� ����:")) {
+            } else if (s.contains("Средний балл:")) {
                 resualt[4] = s;
-            } else if (s.contains("����� � ��������:")) {
+            } else if (s.contains("Место в рейтинге:")) {
                 resualt[5] = s;
-            } else if (s.contains("�������������:")) {
+            } else if (s.contains("Проголосовало:")) {
                 resualt[6] = s;
             }
         }
@@ -108,7 +145,7 @@ public class WorldArtParser implements AnimeParser {
         return resualt;
     }
 
-    public static List<AnimeConnection> parseConnections(Document doc) {
+   /* public static List<AnimeConnection> parseConnections(Document doc) {
 
         Elements elements = doc.getElementsByClass("estimation");
         elements = elements.select("a[href^=http://www.world-art.ru/animation/animation.php]");
@@ -126,7 +163,7 @@ public class WorldArtParser implements AnimeParser {
         }
 
         return resualt;
-    }
+    }*/
 
     public static void parseLinks(Document doc) {
         Elements elementsByClass = doc.select("noindex");
@@ -149,5 +186,5 @@ public class WorldArtParser implements AnimeParser {
         }
 
         return "";
-    }*/
+    }
 }
