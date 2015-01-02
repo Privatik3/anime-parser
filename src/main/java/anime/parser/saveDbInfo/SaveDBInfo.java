@@ -11,6 +11,7 @@ import anime.parser.parser.enums.AnimeGenres;
 import anime.parser.parser.struct.AnimeConnection;
 import anime.parser.parser.struct.AnimeResources;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class SaveDBInfo {
@@ -19,7 +20,7 @@ public class SaveDBInfo {
     DirectedEntity directedEntity;
     YearProductionEntity yearProductionEntity;
     AnimesEntity animesEntity;
-    OtherTitleEntity otherTitleEntity;
+    List<OtherTitleEntity> otherTitleEntity;
     List<AnimeGenreEntity> animeGenreEntitys;
     List<AnimeResourcesEntity> animeResourcesEntitys;
     List<ScreenshotsEntity> screenshotsEntitys;
@@ -35,6 +36,34 @@ public class SaveDBInfo {
     AnimeInfoParser animeInfoParser = factory.getAnimeParser();
 
 
+    public void saveAll() throws SQLException {
+        animeDao.setStudioByStudioId(studioEntity);
+        animeDao.setDirectedByDirectedId(directedEntity);
+        animeDao.setYearProductionByYearProductionId(yearProductionEntity);
+        animeDao.setAnimeInfoById(animesEntity);
+
+        for (AnimeGenreEntity animeGenreEntity : animeGenreEntitys){
+            animeDao.setAnimesGanresById(animeGenreEntity);
+        }
+
+        for (AnimeResourcesEntity animeResourcesEntity : animeResourcesEntitys){
+            animeDao.setAnimeResourcesesById(animeResourcesEntity);
+        }
+
+        for (ScreenshotsEntity screenshotsEntity : screenshotsEntitys){
+            animeDao.setScreenshotsesById(screenshotsEntity);
+        }
+
+        for (OtherTitleEntity otherTitle : otherTitleEntity){
+            animeDao.setSecondNameById(otherTitle);
+        }
+
+        for (ConnectionsEntity connectionsEntity : connectionsEntities){
+            animeDao.setConnectionsesById(connectionsEntity);
+        }
+
+    }
+
     public boolean saveAnimeToDb(int animeId) {
 
         try {
@@ -46,18 +75,20 @@ public class SaveDBInfo {
         return true;
     }
 
-    public void initAll(int animeId) throws Exception {
+    private void initAll(int animeId) throws Exception {
         initStudio(animeInfoParser.getStudioIdById(animeId));
         initDirected(animeInfoParser.getDirectedIdById(animeId));
         initYearProduction(animeId);
         initAnimeInfo(animeId);
         initAnimeGenre(animeId);
-
+        initAnimeResouces(animeId);
+        initScreenshots(animeId);
+        initOtherTitles(animeId);
+        initConnections(animeId);
     }
 
-    public void initAnimeInfo(int animesId){
-        animesEntity.setId(animesId);
-        try {
+    private void initAnimeInfo(int animesId) throws Exception{
+            animesEntity.setId(animesId);
             animesEntity.setMainImg(animeInfoParser.getMainImgById(animesId));
             animesEntity.setMainTitle(animeInfoParser.getMainTitleById(animesId));
             animesEntity.setTypesByAnimeTypeId(animeDao.
@@ -70,33 +101,23 @@ public class SaveDBInfo {
             animesEntity.setDirectedByDirectedId(directedEntity);
             animesEntity.setYearProductionByYearProductionId(yearProductionEntity);
             animesEntity.setTypeInfo(animeInfoParser.getTypeInfoById(animesId));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 
-    public void initDirected(int directId){
-        directedEntity.setId(directId);
-        try {
+    private void initDirected(int directId) throws Exception{
+            directedEntity.setId(directId);
             directedEntity.setName(directedParser.getDirectedNameById(directId));
             directedEntity.setResources(directedParser.getDirectedResourcesById(directId));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 
-    public void initYearProduction(int animeId){
-        yearProductionEntity.setId(animeId);
-        try {
+    private void initYearProduction(int animeId) throws Exception{
+            yearProductionEntity.setId(animeId);
             yearProductionEntity.setBegin(animeInfoParser.getYearStartById(animeId));
             yearProductionEntity.setEnded(animeInfoParser.getYearEndById(animeId));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
-    public void initAnimeGenre(int animeId){
-        try {
+    private void initAnimeGenre(int animeId) throws Exception{
             for (AnimeGenres genre : animeInfoParser.getGenresById(animeId)) {
                 AnimeGenreEntity tempAnimeGenre = new AnimeGenreEntity();
 
@@ -106,14 +127,10 @@ public class SaveDBInfo {
 
                 animeGenreEntitys.add(tempAnimeGenre);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
     }
 
-    public void initAnimeResouces(int animeId){
-        try {
+    private void initAnimeResouces(int animeId) throws Exception{
             for (AnimeResources resources : animeInfoParser.getResourcesById(animeId)){
                 AnimeResourcesEntity tempAnimeResoucesName = new AnimeResourcesEntity();
 
@@ -124,13 +141,9 @@ public class SaveDBInfo {
 
                 animeResourcesEntitys.add(tempAnimeResoucesName);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
-    public void initScreenshots(int animeId){
-        try {
+    private void initScreenshots(int animeId) throws Exception{
             for (String screenshotsUrl : animeInfoParser.getScreenshotsById(animeId)){
                 ScreenshotsEntity tempScreenshots = new ScreenshotsEntity();
 
@@ -139,13 +152,9 @@ public class SaveDBInfo {
 
                 screenshotsEntitys.add(tempScreenshots);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
-    public void initConnections(int animeId){
-        try {
+    private void initConnections(int animeId) throws Exception{
             for (AnimeConnection connections : animeInfoParser.getConnectionsById(animeId)){
                 ConnectionsEntity tempConnections = new ConnectionsEntity();
 
@@ -155,21 +164,25 @@ public class SaveDBInfo {
 
                 connectionsEntities.add(tempConnections);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+    }
+
+    private void initOtherTitles(int animeId) throws Exception{
+        for (String othertitles : animeInfoParser.getOtherTitleById(animeId)){
+            OtherTitleEntity tempOtherTitles = new OtherTitleEntity();
+
+            tempOtherTitles.setName(othertitles);
+            tempOtherTitles.setAnimesByAnimesId(animesEntity);
+
+            otherTitleEntity.add(tempOtherTitles);
         }
     }
 
 
-    public void initStudio(int studioId){
-        studioEntity.setId(studioId);
-        try {
+    private void initStudio(int studioId) throws Exception{
+            studioEntity.setId(studioId);
             studioEntity.setName(studioParser.getStudioNameById(studioId));
             studioEntity.setYear(studioParser.getStudioDateById(studioId));
             studioEntity.setLogo(studioParser.getStudioLogoById(studioId));
             studioEntity.setResources(studioParser.getStudioResourcesById(studioId));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
