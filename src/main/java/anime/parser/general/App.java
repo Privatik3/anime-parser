@@ -4,12 +4,13 @@ import anime.parser.dao.AnimeDao;
 import anime.parser.domain.*;
 import anime.parser.parser.StudioParser;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 
 public class App {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, IOException {
 
         Factory factory = Factory.getInstance();
         AnimeDao animeDao = factory.getAnimeDao();
