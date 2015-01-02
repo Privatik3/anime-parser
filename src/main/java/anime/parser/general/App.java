@@ -13,21 +13,21 @@ public class App {
 
         Factory factory = Factory.getInstance();
         AnimeDao animeDao = factory.getAnimeDao();
-        //AnimeParser animeParser = factory.getAnimeParser();
 
-        //AnimesEntity anime = animeDao.getAnimesByID(310);
+        /*StudioEntity studio = new StudioEntity();
 
-        AnimeResourcesEntity resources = new AnimeResourcesEntity();
+        studio.setId(58);
+        studio.setName("Studio Pierrot");
+        studio.setYear(Date.valueOf("1979-05-07"));
+        studio.setLogo("http://www.world-art.ru/img/company_new/56.jpg");*/
 
-        ConnectionsEntity connections = new ConnectionsEntity();
+        /*StudioResoucesEntity studioResouces = new StudioResoucesEntity();
 
-        connections.setIdConnection(5548);
-        connections.setText("sfsdfsdfdfdf");
+        studioResouces.setResourcesUrl("http://ru.wikipedia.org/wiki/Studio_Pierrot");
+        studioResouces.setResourcesNameByResourcesNameId(animeDao.getResourcesNameEntityById(1));
+        studioResouces.setStudioByStudioId(animeDao.getStudioEntityById(58));
 
-        connections.setAnimesByAnimesId(animeDao.getAnimesByID(310));
-
-
-        animeDao.setConnectionsesById(connections);
+        animeDao.setStudioByStudioId(studioResouces);*/
 
         System.out.println("Сохранино в базу!!!");
         //System.out.println(anime);
