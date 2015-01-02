@@ -64,13 +64,10 @@ public class SaveDBInfo {
 
     }
 
-    public boolean saveAnimeToDb(int animeId) {
+    public boolean saveAnimeToDb(int animeId) throws Exception {
 
-        try {
             initAll(animeId);
-        } catch (Exception e) {
-            return false;
-        }
+            saveAll();
 
         return true;
     }

@@ -3,6 +3,7 @@ package anime.parser.parser.imlement;
 import anime.parser.parser.AnimeInfoParser;
 import anime.parser.parser.enums.AnimeGenres;
 import anime.parser.parser.enums.AnimeTypes;
+import anime.parser.parser.enums.ResoursesName;
 import anime.parser.parser.struct.AnimeConnection;
 import anime.parser.parser.struct.AnimeResources;
 import org.jsoup.Jsoup;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
@@ -63,7 +65,12 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
 
     @Override
     public List<String> getOtherTitleById(int animeId) throws Exception {
-        return null;
+        List<String> resualt;
+        Document animeDoc = getAnimeDoc(animeId);
+
+        resualt = parseOtherTitle(animeDoc);
+
+        return resualt;
     }
 
     @Override
@@ -87,8 +94,13 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
     }
 
     @Override
-    public List<AnimeResources> getResourcesById(int animeId) {
-        return null;
+    public List<AnimeResources> getResourcesById(int animeId) throws Exception {
+        List<AnimeResources> resualt;
+        Document animeDoc = getAnimeDoc(animeId);
+
+        resualt = parseResources(animeDoc);
+
+        return resualt;
     }
 
     @Override
@@ -447,16 +459,45 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
     }
 
     public List<AnimeResources> parseResources(Document doc) {
+
+        List<AnimeResources> resualt = new ArrayList<>();
         Elements elementsByClass = doc.select("noindex");
         elementsByClass = elementsByClass.select("a[target=_blank]");
 
         for (Element element : elementsByClass) {
-            if ("AniDB".equals(element.text()))
-                System.out.println("AniDB: " + element.attr("href"));
-            else if ("MyAnimeList".equals(element.text()))
-                System.out.println("MyAnimeList: " + element.attr("href"));
+            if ("AniDB".equals(element.text())) {
+                AnimeResources aniDb = new AnimeResources();
+                aniDb.setName(ResoursesName.AniDB);
+                aniDb.setUrl(element.attr("href"));
+                resualt.add(aniDb);
+            } else if ("MyAnimeList".equals(element.text())) {
+                AnimeResources myAnimeList = new AnimeResources();
+                myAnimeList.setName(ResoursesName.MyAnimeList);
+                myAnimeList.setUrl(element.attr("href"));
+                resualt.add(myAnimeList);
+            } else if ("ANN".equals(element.text())) {
+                AnimeResources ann = new AnimeResources();
+                ann.setName(ResoursesName.ANN);
+                ann.setUrl(element.attr("href"));
+                resualt.add(ann);
+            } else if ("Википедия".equals(element.text())) {
+                AnimeResources wikipedia = new AnimeResources();
+                wikipedia.setName(ResoursesName.Wikipedia);
+                wikipedia.setUrl(element.attr("href"));
+                resualt.add(wikipedia);
+            }
         }
 
-        return null;
+        return resualt;
+    }
+
+    public List<String> parseOtherTitle(Document doc) {
+        Element element = doc.select("font[color=#990000]").first().parent().parent().parent();
+
+        String other_titles = element.toString().replaceAll("<br>", "@");
+        other_titles = Jsoup.parse(other_titles).text();
+        String[] allTitles = other_titles.split("@");
+
+        return Arrays.asList(Arrays.copyOfRange(allTitles, 1, allTitles.length));
     }
 }

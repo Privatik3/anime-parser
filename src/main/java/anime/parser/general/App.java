@@ -16,9 +16,10 @@ public class App {
         SaveDBInfo saver = new SaveDBInfo();
         int animeId = 311;
 
-        if (saver.saveAnimeToDb(animeId))
-            System.out.println("Аниме " + animeId + " сохраненов в базу!!!");
-        else
-            System.out.println("Не удалось сохранить");
+        try {
+            saver.saveAnimeToDb(animeId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
