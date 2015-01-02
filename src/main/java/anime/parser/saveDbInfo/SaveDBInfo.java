@@ -35,10 +35,25 @@ public class SaveDBInfo {
     AnimeInfoParser animeInfoParser = factory.getAnimeParser();
 
 
-    public void initAll(int animeId){
-        //studioEntity
+    public boolean saveAnimeToDb(int animeId) {
+
+        try {
+            initAll(animeId);
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
     }
 
+    public void initAll(int animeId) throws Exception {
+        initStudio(animeInfoParser.getStudioIdById(animeId));
+        initDirected(animeInfoParser.getDirectedIdById(animeId));
+        initYearProduction(animeId);
+        initAnimeInfo(animeId);
+        initAnimeGenre(animeId);
+
+    }
 
     public void initAnimeInfo(int animesId){
         animesEntity.setId(animesId);
@@ -134,7 +149,7 @@ public class SaveDBInfo {
             for (AnimeConnection connections : animeInfoParser.getConnectionsById(animeId)){
                 ConnectionsEntity tempConnections = new ConnectionsEntity();
 
-                tempConnections.setIdConnection(animeId);
+                tempConnections.setIdConnection(connections.getConnectionId());
                 tempConnections.setText(connections.getInfo());
                 tempConnections.setAnimesByAnimesId(animesEntity);
 

@@ -12,21 +12,22 @@ import java.sql.Date;
 
 public interface AnimeInfoParser {
 
-    public String getMainImgById(int animeId) throws IOException;
-    public String getMainTitleById(int animeId) throws IOException;
-    public AnimeTypes getTypeById(int animeId) throws IOException;
-    public List<AnimeGenres> getGenresById(int animeId) throws IOException;
-    public String getReviewById(int animeId) throws IOException;
-    public List<String> getScreenshotsById(int animeId) throws IOException;
-    public List<AnimeResources> getResourcesById(int animeId) throws IOException;
-    public List<AnimeConnection> getConnectionsById(int animeId) throws IOException;
-    public double getAverageById(int animeId) throws IOException;
-    public int getVotedById(int animeId) throws IOException;
-    public int getRancedById(int animeId) throws IOException;
-    public int getStudioIdById(int animeId) throws IOException;
-    public int getDirectedIdById(int animeId) throws IOException;
-    public Date getYearStartById(int animeId) throws IOException;
-    public Date getYearEndById(int animeId) throws IOException;
-    public String getTypeInfoById(int animeId) throws IOException;
+    public String getMainImgById(int animeId) throws Exception;
+    public String getMainTitleById(int animeId) throws Exception;
+    public AnimeTypes getTypeById(int animeId) throws Exception;
+    public List<AnimeGenres> getGenresById(int animeId) throws Exception;
+    public List<String> getOtherTitleById(int animeId) throws Exception;
+    public String getReviewById(int animeId) throws Exception;
+    public List<String> getScreenshotsById(int animeId) throws Exception;
+    public List<AnimeResources> getResourcesById(int animeId) throws Exception;
+    public List<AnimeConnection> getConnectionsById(int animeId) throws Exception;
+    public double getAverageById(int animeId) throws Exception;
+    public int getVotedById(int animeId) throws Exception;
+    public int getRancedById(int animeId) throws Exception;
+    public int getStudioIdById(int animeId) throws Exception;
+    public int getDirectedIdById(int animeId) throws Exception;
+    public Date getYearStartById(int animeId) throws Exception;
+    public Date getYearEndById(int animeId) throws Exception;
+    public String getTypeInfoById(int animeId) throws Exception;
 
 }
