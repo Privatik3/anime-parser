@@ -5,8 +5,8 @@ import java.sql.Date;
 
 public interface StudioParser {
 
-    public String getStudioNameById(int studioId) throws IOException;
-    public Date getStudioDateById(int studioId) throws IOException;
-    public String getStudioLogoById(int studioId) throws IOException;
-    public String getStudioResourcesById(int studioId) throws IOException;
+    public String getStudioNameById(int studioId) throws IOException, Exception;
+    public Date getStudioDateById(int studioId) throws Exception;
+    public String getStudioLogoById(int studioId) throws Exception;
+    public String getStudioResourcesById(int studioId) throws Exception;
 }

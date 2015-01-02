@@ -144,13 +144,23 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
     }
 
     @Override
-    public int getStudioIdById(int animeId) {
-        return 0;
+    public int getStudioIdById(int animeId) throws Exception {
+        int resualt;
+        Document animeDoc = getAnimeDoc(animeId);
+
+        resualt = parseStudioId(animeDoc);
+
+        return resualt;
     }
 
     @Override
-    public int getDirectedIdById(int animeId) {
-        return 0;
+    public int getDirectedIdById(int animeId) throws Exception {
+        int resualt;
+        Document animeDoc = getAnimeDoc(animeId);
+
+        resualt = parseDirectedId(animeDoc);
+
+        return resualt;
     }
 
     @Override
@@ -499,5 +509,22 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
         String[] allTitles = other_titles.split("@");
 
         return Arrays.asList(Arrays.copyOfRange(allTitles, 1, allTitles.length));
+    }
+
+    private int parseStudioId(Document doc) {
+        String studioUrl = doc.select("a[href^=http://www.world-art.ru/company.php?id=]").first().attr("href");
+        String studioId = studioUrl.substring(studioUrl.indexOf("id=") + 3);
+
+        return Integer.parseInt(studioId);
+    }
+
+    private int parseDirectedId(Document doc) throws Exception {
+        Elements loginform = doc.getElementsByClass("estimation");
+        Elements element = loginform.select("a[href=http://www.world-art.ru/country.php?id=2]").first().parent().select("a[href^=http://www.world-art.ru/people.php?id=]");
+
+        String directionUrl = element.attr("href");
+        String directedId = directionUrl.substring(directionUrl.indexOf("id=") + 3);
+
+        return Integer.parseInt(directedId);
     }
 }
