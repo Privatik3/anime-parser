@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class ConnectionsEntity {
 
     private int id;
-    private String idConnection;
+    private int idConnection;
     private String text;
     private AnimesEntity animesByAnimesId;
 
@@ -23,11 +23,11 @@ public class ConnectionsEntity {
 
     @Basic
     @Column(name = "id_connection", nullable = true, insertable = true, updatable = true, length = 45)
-    public String getIdConnection() {
+    public int getIdConnection() {
         return idConnection;
     }
 
-    public void setIdConnection(String idConnection) {
+    public void setIdConnection(int idConnection) {
         this.idConnection = idConnection;
     }
 
@@ -50,7 +50,7 @@ public class ConnectionsEntity {
         ConnectionsEntity that = (ConnectionsEntity) o;
 
         if (id != that.id) return false;
-        if (idConnection != null ? !idConnection.equals(that.idConnection) : that.idConnection != null) return false;
+        if (idConnection != that.idConnection) return false;
         if (text != null ? !text.equals(that.text) : that.text != null) return false;
 
         return true;
@@ -59,7 +59,7 @@ public class ConnectionsEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (idConnection != null ? idConnection.hashCode() : 0);
+        result = 31 * result;
         result = 31 * result + (text != null ? text.hashCode() : 0);
         return result;
     }

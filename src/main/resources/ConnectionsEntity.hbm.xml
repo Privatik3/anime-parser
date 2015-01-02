@@ -9,7 +9,7 @@
             <column name="id" sql-type="int" not-null="true"/>
         </id>
         <property name="idConnection">
-            <column name="id_connection" sql-type="varchar" length="45"/>
+            <column name="id_connection" sql-type="int" length="45"/>
         </property>
         <property name="text">
             <column name="text" sql-type="varchar" not-null="true"/>

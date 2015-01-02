@@ -16,39 +16,6 @@ public class WorldArtParser implements AnimeParser {
     private Document mainDoc;
     private Integer lastDocId = 0;
 
-    @Override
-    public AnimesEntity getParseAnimeInfoById(Integer animeId) throws IOException {
-        AnimesEntity resualt = new AnimesEntity();
-        Document animeDoc = getAnimeDoc(animeId);
-
-        resualt.setId(animeId);
-        resualt.setMainTitle(parseTitle(animeDoc));
-        resualt.setMainImg(parseTitleImg(animeDoc));
-        resualt.setReview(parseReview(animeDoc));
-
-        String[] info = parseInfo(animeDoc);
-
-
-
-
-        return resualt;
-    }
-
-    @Override
-    public DirectedEntity getDirectedByDirectedId(Integer animeId) {
-        return null;
-    }
-
-    @Override
-    public StudioEntity getStudioByStudioId(Integer animeId) {
-        return null;
-    }
-
-    @Override
-    public YearProductionEntity getYearProductionByYearProductionId(Integer animeId) {
-        return null;
-    }
-
     private Document getAnimeDoc(Integer animeId) throws IOException {
 
         if (lastDocId.equals(animeId) ) {

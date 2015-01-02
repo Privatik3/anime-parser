@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class TestParser {
 
-    public static void main(String[] args) throws IOException {
+    /*public static void main(String[] args) throws IOException {
 
         AnimeParser parser = new WorldArtParser();
 
@@ -21,5 +21,5 @@ public class TestParser {
         System.out.println("Average: " + anime.getAverage());
         System.out.println("Ranced: " + anime.getRanced());
         System.out.println("Voted: " + anime.getVoted());
-    }
+    }*/
 }
