@@ -10,7 +10,6 @@ public class ResourcesNameEntity {
     private int id;
     private String name;
     private Collection<AnimeResourcesEntity> animeResourcesesById;
-    private Collection<StudioResoucesEntity> studioResoucesesById;
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true)
@@ -59,14 +58,5 @@ public class ResourcesNameEntity {
 
     public void setAnimeResourcesesById(Collection<AnimeResourcesEntity> animeResourcesesById) {
         this.animeResourcesesById = animeResourcesesById;
-    }
-
-    @OneToMany(mappedBy = "resourcesNameByResourcesNameId")
-    public Collection<StudioResoucesEntity> getStudioResoucesesById() {
-        return studioResoucesesById;
-    }
-
-    public void setStudioResoucesesById(Collection<StudioResoucesEntity> studioResoucesesById) {
-        this.studioResoucesesById = studioResoucesesById;
     }
 }

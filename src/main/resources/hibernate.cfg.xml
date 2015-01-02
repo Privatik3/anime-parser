@@ -30,8 +30,6 @@
         <mapping class="anime.parser.domain.ScreenshotsEntity"/>
         <mapping resource="StudioEntity.hbm.xml"/>
         <mapping class="anime.parser.domain.StudioEntity"/>
-        <mapping resource="StudioResoucesEntity.hbm.xml"/>
-        <mapping class="anime.parser.domain.StudioResoucesEntity"/>
         <mapping resource="TypesEntity.hbm.xml"/>
         <mapping class="anime.parser.domain.TypesEntity"/>
         <mapping resource="YearProductionEntity.hbm.xml"/>

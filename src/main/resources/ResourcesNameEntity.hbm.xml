@@ -17,11 +17,5 @@
             </key>
             <one-to-many not-found="ignore" class="anime.parser.domain.AnimeResourcesEntity"/>
         </set>
-        <set name="studioResoucesesById" inverse="true">
-            <key>
-                <column name="resources_name_id" not-null="true"/>
-            </key>
-            <one-to-many not-found="ignore" class="anime.parser.domain.StudioResoucesEntity"/>
-        </set>
     </class>
 </hibernate-mapping>

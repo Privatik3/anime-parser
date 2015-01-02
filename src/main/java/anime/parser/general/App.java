@@ -14,6 +14,8 @@ public class App {
         Factory factory = Factory.getInstance();
         AnimeDao animeDao = factory.getAnimeDao();
 
+        AnimesEntity anime = animeDao.getAnimesByID(310);
+
         /*StudioEntity studio = new StudioEntity();
 
         studio.setId(58);
@@ -29,7 +31,7 @@ public class App {
 
         animeDao.setStudioByStudioId(studioResouces);*/
 
-        System.out.println("Сохранино в базу!!!");
-        //System.out.println(anime);
+        //System.out.println("Сохранино в базу!!!");
+        System.out.println(anime);
     }
 }

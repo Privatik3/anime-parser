@@ -13,7 +13,6 @@ public class StudioEntity {
     private Date year;
     private String logo;
     private Collection<AnimesEntity> animesesById;
-    private Collection<StudioResoucesEntity> studioResoucesesById;
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true)
@@ -86,14 +85,5 @@ public class StudioEntity {
 
     public void setAnimesesById(Collection<AnimesEntity> animesesById) {
         this.animesesById = animesesById;
-    }
-
-    @OneToMany(mappedBy = "studioByStudioId")
-    public Collection<StudioResoucesEntity> getStudioResoucesesById() {
-        return studioResoucesesById;
-    }
-
-    public void setStudioResoucesesById(Collection<StudioResoucesEntity> studioResoucesesById) {
-        this.studioResoucesesById = studioResoucesesById;
     }
 }

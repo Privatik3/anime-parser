@@ -263,16 +263,9 @@ public class AnimesEntity {
         sb.append("     Name: ").append(studioByStudioId.getName()).append("\n");
         sb.append("     Year: ").append(studioByStudioId.getYear()).append("\n");
         sb.append("     Logo: ").append(studioByStudioId.getLogo()).append("\n");
-        sb.append("     Resources:\n");
-        sb.append("         URL: ");
-
-        for (StudioResoucesEntity resoucesEntity : studioByStudioId.getStudioResoucesesById()){
-            sb.append(resoucesEntity.getResourcesUrl()).append(" Name: ")
-                    .append(resoucesEntity.getResourcesNameByResourcesNameId().getName()).append("\n");
-        }
+        sb.append("     Wiki: ").append(directedByDirectedId.getResources()).append("\n");
 
         sb.append("Screenshots: ").append(screenshotsesById.size()).append("\n");
-
 
         sb.append("Connections:\n");
 
