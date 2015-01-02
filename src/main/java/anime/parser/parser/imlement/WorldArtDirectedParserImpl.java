@@ -4,6 +4,8 @@ import anime.parser.general.Factory;
 import anime.parser.parser.DirectedParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
@@ -13,7 +15,7 @@ public class WorldArtDirectedParserImpl implements DirectedParser {
     private Integer lastDocId = 0;
 
     public static void main(String[] args) throws Exception {
-        int directedId = 1549;
+        int directedId = 1528;
         DirectedParser parser = Factory.getInstance().getDirectedParser();
 
         System.out.println("Name: " + parser.getDirectedNameById(directedId));
@@ -45,18 +47,22 @@ public class WorldArtDirectedParserImpl implements DirectedParser {
     private String parseName(Document doc) throws Exception {
         String resualt;
 
-
-
-        return resualt;
+        return resualt = doc.title();
     }
 
     private String parseResources(Document doc) throws Exception {
-        String resualt;
 
+        Elements elements = doc.getElementsByClass("review");
 
+        for (Element elements1 :  elements.select("a")){
 
+            if ("Википедия".equals(elements1.text())) return elements1.attr("href");
+            if ("Wikipedia".equals(elements1.text())) return elements1.attr("href");
+            if ("AniDB".equals(elements1.text())) return elements1.attr("href");
+            if ("MyAnimeList".equals(elements1.text())) return elements1.attr("href");
 
-        return resualt;
+        }
+        return "";
     }
 
     private Document getDirectedDoc(Integer directedId) throws Exception {
@@ -78,5 +84,8 @@ public class WorldArtDirectedParserImpl implements DirectedParser {
             }
             throw ex;
         }
+    }
+
+    private class TextView {
     }
 }
