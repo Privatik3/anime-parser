@@ -1,6 +1,5 @@
-package anime.parser.parser;
+package anime.parser.parser.imlement;
 
-import anime.parser.domain.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class WorldArtParser implements AnimeParser {
+public class WorldArtParser  {
 
     private Document mainDoc;
     private Integer lastDocId = 0;

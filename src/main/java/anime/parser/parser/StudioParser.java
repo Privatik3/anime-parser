@@ -7,4 +7,5 @@ public interface StudioParser {
     public String getStudioNameById(int studioId);
     public Date getStudioDateById(int studioId);
     public String getStudioLogoById(int studioId);
+    public String getStudioResourcesById(int studioId);
 }

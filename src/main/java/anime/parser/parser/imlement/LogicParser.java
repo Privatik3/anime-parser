@@ -1,4 +1,4 @@
-package anime.parser.parser;
+package anime.parser.parser.imlement;
 
 public class LogicParser {
 

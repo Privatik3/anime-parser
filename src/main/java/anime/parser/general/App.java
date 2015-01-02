@@ -2,9 +2,6 @@ package anime.parser.general;
 
 import anime.parser.dao.AnimeDao;
 import anime.parser.domain.*;
-import anime.parser.parser.AnimeParser;
-
-import java.sql.Date;
 import java.sql.SQLException;
 
 public class App {
