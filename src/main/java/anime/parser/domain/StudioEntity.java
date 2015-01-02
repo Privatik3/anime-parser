@@ -12,6 +12,7 @@ public class StudioEntity {
     private String name;
     private Date year;
     private String logo;
+    private String resources;
     private Collection<AnimesEntity> animesesById;
 
     @Id
@@ -52,6 +53,16 @@ public class StudioEntity {
 
     public void setLogo(String logo) {
         this.logo = logo;
+    }
+
+    @Basic
+    @Column(name = "resources", nullable = false, insertable = true, updatable = true, length = 255)
+    public String getResources() {
+        return resources;
+    }
+
+    public void setResources(String resources) {
+        this.resources = resources;
     }
 
     @Override

@@ -17,6 +17,9 @@
         <property name="logo">
             <column name="logo" sql-type="varchar" not-null="true"/>
         </property>
+        <property name="resources">
+            <column name="resources" sql-type="varchar" not-null="true"/>
+        </property>
         <set name="animesesById" inverse="true">
             <key>
                 <column name="studio_id" not-null="true"/>

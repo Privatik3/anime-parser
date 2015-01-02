@@ -2,6 +2,9 @@ package anime.parser.general;
 
 import anime.parser.dao.AnimeDao;
 import anime.parser.domain.*;
+import anime.parser.parser.StudioParser;
+
+import java.sql.Date;
 import java.sql.SQLException;
 
 public class App {
@@ -10,25 +13,25 @@ public class App {
 
         Factory factory = Factory.getInstance();
         AnimeDao animeDao = factory.getAnimeDao();
+        StudioParser studioParser = factory.getStudioParser();
 
-        AnimesEntity anime = animeDao.getAnimesByID(310);
+        StudioEntity studio = new StudioEntity();
+        int studioId = 58;
 
-        /*StudioEntity studio = new StudioEntity();
+        studio.setId(studioId);
+        studio.setName(studioParser.getStudioNameById(studioId));
+        studio.setYear(studioParser.getStudioDateById(studioId));
+        studio.setLogo(studioParser.getStudioLogoById(studioId));
+        studio.setResources(studioParser.getStudioResourcesById(studioId));
 
-        studio.setId(58);
-        studio.setName("Studio Pierrot");
-        studio.setYear(Date.valueOf("1979-05-07"));
-        studio.setLogo("http://www.world-art.ru/img/company_new/56.jpg");*/
+        animeDao.setStudioByStudioId(studio);
 
         /*StudioResoucesEntity studioResouces = new StudioResoucesEntity();
 
         studioResouces.setResourcesUrl("http://ru.wikipedia.org/wiki/Studio_Pierrot");
         studioResouces.setResourcesNameByResourcesNameId(animeDao.getResourcesNameEntityById(1));
-        studioResouces.setStudioByStudioId(animeDao.getStudioEntityById(58));
+        studioResouces.setStudioByStudioId(animeDao.getStudioEntityById(58));*/
 
-        animeDao.setStudioByStudioId(studioResouces);*/
-
-        //System.out.println("Сохранино в базу!!!");
-        System.out.println(anime);
+        System.out.println("Сохранино в базу!!!");
     }
 }
