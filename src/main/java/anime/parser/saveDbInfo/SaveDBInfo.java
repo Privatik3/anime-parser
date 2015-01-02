@@ -31,7 +31,7 @@ public class SaveDBInfo {
 
 
     public void initAll(int animeId){
-        studioEntity
+        //studioEntity
     }
 
 
@@ -65,22 +65,29 @@ public class SaveDBInfo {
         }
     }
 
-    public void initYearProduction(int yearproductionId){
-        yearProductionEntity.setId(yearproductionId);
+    public void initYearProduction(int animeId){
+        yearProductionEntity.setId(animeId);
         try {
-            yearProductionEntity.setBegin(animeInfoParser.getYearStartById(yearproductionId));
-            yearProductionEntity.setEnded(animeInfoParser.getYearEndById(yearproductionId));
+            yearProductionEntity.setBegin(animeInfoParser.getYearStartById(animeId));
+            yearProductionEntity.setEnded(animeInfoParser.getYearEndById(animeId));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void initAnimeGenre(int animeGenreId){
+    public void initAnimeGenre(int animeId){
+        try {
+            for (AnimeGenres genre : animeInfoParser.getGenresById(animeId)) {
+                AnimeGenreEntity tempAnimeGenre = new AnimeGenreEntity();
 
-        for (AnimeGenres genre : animeInfoParser.getGenresById(animesEntity.getId()))
-        animeGenreEntitys.setId(animeGenreId);
-        animeGenreEntitys.setAnimesByAnimesId(animesEntity);
-        animeGenreEntitys.setGenresByGenresId(animeDao.getGenresEntityByID(animeInfoParser.getGenresById()));
+                tempAnimeGenre.setId(animeId);
+                tempAnimeGenre.setAnimesByAnimesId(animesEntity);
+                tempAnimeGenre.setGenresByGenresId(animeDao.getGenresEntityByID(genre.ordinal() + 1));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void initStudio(int studioId){
