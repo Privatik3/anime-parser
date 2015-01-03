@@ -10,6 +10,9 @@
         <property name="hibernate.connection.username">admin</property>
         <property name="hibernate.connection.password">root</property>
 
+        <property name="hibernate.connection.useUnicode">true</property>
+        <property name="hibernate.connection.characterEncoding">UTF-8</property>
+
         <mapping resource="AnimeGenreEntity.hbm.xml"/>
         <mapping class="anime.parser.domain.AnimeGenreEntity"/>
         <mapping resource="AnimeResourcesEntity.hbm.xml"/>
