@@ -545,9 +545,12 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
 
     private int parseStudioId(Document doc) {
         String studioUrl = doc.select("a[href^=http://www.world-art.ru/company.php?id=]").first().attr("href");
-        String studioId = studioUrl.substring(studioUrl.indexOf("id=") + 3);
 
-        return Integer.parseInt(studioId);
+        if (studioUrl == null) {
+            return 0;
+        } else {
+            return Integer.parseInt(studioUrl.substring(studioUrl.indexOf("id=") + 3));
+        }
     }
 
     private int parseDirectedId(Document doc) throws Exception {

@@ -40,7 +40,7 @@ public class SaveDBInfo {
 
     private void saveAll() throws SQLException {
 
-        if (animeDao.getStudioEntityById(studioEntity.getId()) == null)
+        if (animeDao.getStudioEntityById(studioEntity.getId()) == null && studioEntity != null)
             animeDao.setStudioByStudioId(studioEntity);
 
         if (animeDao.getDirectedEntityById(directedEntity.getId()) == null)
@@ -91,19 +91,22 @@ public class SaveDBInfo {
         initConnections(animeId);
     }
 
-    private void initAnimeInfo(int animesId) throws Exception{
-            animesEntity.setId(animesId);
-            animesEntity.setMainImg(animeInfoParser.getMainImgById(animesId));
-            animesEntity.setMainTitle(animeInfoParser.getMainTitleById(animesId));
-            animesEntity.setTypesByAnimeTypeId(animeDao.getTypesEntityById(animeInfoParser.getTypeById(animesId).ordinal() + 1));
-            animesEntity.setReview(animeInfoParser.getReviewById(animesId));
-            animesEntity.setAverage(animeInfoParser.getAverageById(animesId));
-            animesEntity.setRanced(animeInfoParser.getRancedById(animesId));
-            animesEntity.setVoted(animeInfoParser.getVotedById(animesId));
+    private void initAnimeInfo(int animesId) throws Exception {
+        animesEntity.setId(animesId);
+        animesEntity.setMainImg(animeInfoParser.getMainImgById(animesId));
+        animesEntity.setMainTitle(animeInfoParser.getMainTitleById(animesId));
+        animesEntity.setTypesByAnimeTypeId(animeDao.getTypesEntityById(animeInfoParser.getTypeById(animesId).ordinal() + 1));
+        animesEntity.setReview(animeInfoParser.getReviewById(animesId));
+        animesEntity.setAverage(animeInfoParser.getAverageById(animesId));
+        animesEntity.setRanced(animeInfoParser.getRancedById(animesId));
+        animesEntity.setVoted(animeInfoParser.getVotedById(animesId));
+
+        if (studioEntity != null)
             animesEntity.setStudioByStudioId(studioEntity);
-            animesEntity.setDirectedByDirectedId(directedEntity);
-            animesEntity.setYearProductionByYearProductionId(yearProductionEntity);
-            animesEntity.setTypeInfo(animeInfoParser.getTypeInfoById(animesId));
+
+        animesEntity.setDirectedByDirectedId(directedEntity);
+        animesEntity.setYearProductionByYearProductionId(yearProductionEntity);
+        animesEntity.setTypeInfo(animeInfoParser.getTypeInfoById(animesId));
 
     }
 
@@ -180,11 +183,19 @@ public class SaveDBInfo {
     }
 
 
-    private void initStudio(int studioId) throws Exception{
-            studioEntity.setId(studioId);
-            studioEntity.setName(studioParser.getStudioNameById(studioId));
-            studioEntity.setYear(studioParser.getStudioDateById(studioId));
-            studioEntity.setLogo(studioParser.getStudioLogoById(studioId));
-            studioEntity.setResources(studioParser.getStudioResourcesById(studioId));
+    private void initStudio(int animeId) throws Exception {
+
+        int studioId = animeInfoParser.getStudioIdById(animeId);
+
+        if (studioId == 0) {
+            studioEntity = null;
+            return;
+        }
+
+        studioEntity.setId(studioId);
+        studioEntity.setName(studioParser.getStudioNameById(studioId));
+        studioEntity.setYear(studioParser.getStudioDateById(studioId));
+        studioEntity.setLogo(studioParser.getStudioLogoById(studioId));
+        studioEntity.setResources(studioParser.getStudioResourcesById(studioId));
     }
 }
