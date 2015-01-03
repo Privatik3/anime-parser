@@ -7,17 +7,22 @@ public class App {
 
     public static void main(String[] args) throws Exception {
 
+
         SaveDBInfo saver = new SaveDBInfo();
-        int animeId = 310;
 
-        try {
-            saver.saveAnimeToDb(animeId);
-            System.out.println("Аниме с id: " + animeId + " успешно сохранено в базу");
-        } catch (Exception e) {
-            System.err.println("Не удалось сохранить аниме с id:" + animeId);
-            e.printStackTrace();
+        for (int i = 1; i < 500; i++) {
+            int animeId = i;
+
+
+            try {
+                saver.saveAnimeToDb(animeId);
+                System.out.println("Аниме с id: " + animeId + " успешно сохранено в базу");
+            } catch (Exception e) {
+                System.err.println("Не удалось сохранить аниме с id:" + animeId);
+                e.printStackTrace();
+            }
         }
+            HibernateUtil.closeSession();
 
-        HibernateUtil.closeSession();
     }
 }
