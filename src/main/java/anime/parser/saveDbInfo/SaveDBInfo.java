@@ -10,6 +10,7 @@ import anime.parser.parser.StudioParser;
 import anime.parser.parser.enums.AnimeGenres;
 import anime.parser.parser.struct.AnimeConnection;
 import anime.parser.parser.struct.AnimeResources;
+import anime.parser.utill.HibernateUtil;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class SaveDBInfo {
 
     private void saveAll() throws SQLException {
 
-        if (animeDao.getStudioEntityById(studioEntity.getId()) == null && studioEntity != null)
+        if (studioEntity != null && animeDao.getStudioEntityById(studioEntity.getId()) == null)
             animeDao.setStudioByStudioId(studioEntity);
 
         if (animeDao.getDirectedEntityById(directedEntity.getId()) == null)
@@ -73,8 +74,15 @@ public class SaveDBInfo {
 
     public boolean saveAnimeToDb(int animeId) throws Exception {
 
-            initAll(animeId);
-            saveAll();
+        long start = System.currentTimeMillis();
+        initAll(animeId);
+        long end = System.currentTimeMillis();
+        System.out.println("Инициальзация прошла за " + ((end - start) / 1000) + " секунд");
+
+        start = System.currentTimeMillis();
+        saveAll();
+        end = System.currentTimeMillis();
+        System.out.println("Сохранения в бузу прошло за " + ((end - start) / 1000) + " секунд");
 
         return true;
     }

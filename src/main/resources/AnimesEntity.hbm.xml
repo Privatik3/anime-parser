@@ -33,7 +33,7 @@
             <column name="directed_id" not-null="true"/>
         </many-to-one>
         <many-to-one name="studioByStudioId" class="anime.parser.domain.StudioEntity">
-            <column name="studio_id" not-null="true"/>
+            <column name="studio_id" />
         </many-to-one>
         <many-to-one name="typesByAnimeTypeId" class="anime.parser.domain.TypesEntity">
             <column name="anime_type_id" not-null="true"/>

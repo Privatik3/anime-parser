@@ -8,9 +8,7 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         SaveDBInfo saver = new SaveDBInfo();
-        int animeId = 301;
-
-        long start = System.currentTimeMillis();
+        int animeId = 6972;
 
         try {
             saver.saveAnimeToDb(animeId);
@@ -21,9 +19,5 @@ public class App {
         }
 
         HibernateUtil.closeSession();
-
-        long end = System.currentTimeMillis();
-
-        System.out.println("Аниме сохранено в базу за " + ((end - start) / 1000) + " секунд");
     }
 }
