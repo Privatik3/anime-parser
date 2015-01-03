@@ -132,11 +132,6 @@ public class WorldArtStudioParserImpl implements StudioParser {
     }
 
     private String parseName(Document doc) throws UnsupportedEncodingException {
-        return encodingToUtf(doc.title());
-    }
-
-    private String encodingToUtf(String stringInCi1215) throws UnsupportedEncodingException {
-
-        return new String(stringInCi1215.getBytes("windows-1251"), "UTF-8");
+        return doc.title();
     }
 }

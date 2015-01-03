@@ -38,7 +38,7 @@ public class WorldArtDirectedParserImpl implements DirectedParser {
 
     //Логика парсера
     private String parseName(Document doc) throws Exception {
-        return encodingToUtf(doc.title());
+        return doc.title();
     }
 
     private String parseResources(Document doc) throws Exception {
@@ -75,10 +75,5 @@ public class WorldArtDirectedParserImpl implements DirectedParser {
             }
             throw ex;
         }
-    }
-
-    private String encodingToUtf(String stringInCi1215) throws UnsupportedEncodingException {
-
-        return new String(stringInCi1215.getBytes("windows-1251"), "UTF-8");
     }
 }

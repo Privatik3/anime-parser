@@ -240,12 +240,6 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
         }
     }
 
-    private String encodingToUtf(String stringInCi1215) throws UnsupportedEncodingException {
-
-        return new String(stringInCi1215.getBytes("windows-1251"), "UTF-8");
-    }
-
-
     //Логика парсера
     private String parseTitle(Document doc) throws Exception {
         return doc.select("meta[name=description]").get(0).attr("content");
@@ -262,7 +256,7 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
 
         String[] info = parseInfo(doc);
 
-        return encodingToUtf(info[0].substring(5));
+        return info[0].substring(5);
     }
 
     private AnimeTypes parseType(Document doc) throws Exception {
@@ -301,7 +295,7 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
             resualt = elements.first().text();
         }
 
-        return encodingToUtf(resualt);
+        return resualt;
     }
 
     private List<AnimeGenres> parseGenre(Document doc) throws Exception {
@@ -493,7 +487,7 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
             id = id.substring(id.indexOf("id=") + 3);
 
             temp_connection.setConnectionId(Integer.parseInt(id));
-            temp_connection.setInfo(encodingToUtf(elements.get(i).parent().ownText().substring(2)));
+            temp_connection.setInfo(elements.get(i).parent().ownText().substring(2));
             resualt.add(temp_connection);
         }
 
@@ -543,7 +537,7 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
         resualt = Arrays.asList(Arrays.copyOfRange(allTitles, 1, allTitles.length));
 
         for (int i = 0; i < resualt.size(); i++) {
-            resualt.set(i, encodingToUtf(resualt.get(i)));
+            resualt.set(i, resualt.get(i));
         }
 
         return resualt;

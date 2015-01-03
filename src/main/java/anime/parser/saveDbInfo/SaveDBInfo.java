@@ -38,7 +38,7 @@ public class SaveDBInfo {
 
 
 
-    public void saveAll() throws SQLException {
+    private void saveAll() throws SQLException {
 
         if (animeDao.getStudioEntityById(studioEntity.getId()) == null)
             animeDao.setStudioByStudioId(studioEntity);
