@@ -8,19 +8,12 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 public class WorldArtDirectedParserImpl implements DirectedParser {
 
     private Document directionDoc;
     private Integer lastDocId = 0;
-
-    public static void main(String[] args) throws Exception {
-        int directedId = 1528;
-        DirectedParser parser = Factory.getInstance().getDirectedParser();
-
-        System.out.println("Name: " + parser.getDirectedNameById(directedId));
-        System.out.println("Resources: " + parser.getDirectedResourcesById(directedId));
-    }
 
     @Override
     public String getDirectedNameById(int directedId) throws Exception{
@@ -45,9 +38,7 @@ public class WorldArtDirectedParserImpl implements DirectedParser {
 
     //Логика парсера
     private String parseName(Document doc) throws Exception {
-        String resualt;
-
-        return resualt = doc.title();
+        return encodingToUtf(doc.title());
     }
 
     private String parseResources(Document doc) throws Exception {
@@ -77,7 +68,7 @@ public class WorldArtDirectedParserImpl implements DirectedParser {
                     lastDocId = directedId;
                     return directionDoc;
                 } catch (IOException e) {
-                    System.err.println("Не удалось закачать страницу id: " + directedId);
+                    System.err.println("Не удалось закачать страницу рижиссёра, id: " + directedId);
                     System.out.println("Повторяю попытку ...");
                     ex = e;
                 }
@@ -86,6 +77,8 @@ public class WorldArtDirectedParserImpl implements DirectedParser {
         }
     }
 
-    private class TextView {
+    private String encodingToUtf(String stringInCi1215) throws UnsupportedEncodingException {
+
+        return new String(stringInCi1215.getBytes("windows-1251"), "UTF-8");
     }
 }

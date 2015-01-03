@@ -12,6 +12,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,7 +22,9 @@ import java.util.List;
 public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
 
     private Document mainDoc;
+    private Document screenshotsDoc;
     private Integer lastDocId = 0;
+    private Integer lastScreenshotsId = 0;
 
     @Override
     public String getMainImgById(int animeId) throws Exception {
@@ -86,9 +89,9 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
     @Override
     public List<String> getScreenshotsById(int animeId) throws Exception {
         List<String> resualt;
-        Document animeDoc = getAnimeDoc(animeId);
+        Document screenshotDoc = getScreenshotDoc(animeId);
 
-        resualt = parseScreenshots(animeDoc);
+        resualt = parseScreenshots(screenshotDoc);
 
         return resualt;
     }
@@ -193,6 +196,8 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
         return resualt;
     }
 
+
+    //Вспомагательная логика
     private Document getAnimeDoc(Integer animeId) throws Exception {
 
         if (lastDocId.equals(animeId) ) {
@@ -214,6 +219,32 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
         }
     }
 
+    private Document getScreenshotDoc(Integer screenshotId) throws Exception {
+
+        if (lastScreenshotsId.equals(screenshotId) ) {
+            return screenshotsDoc;
+        } else {
+            IOException ex = null;
+            for (int i = 0; i < 5; i++) {
+                try {
+                    screenshotsDoc = Jsoup.connect("http://www.world-art.ru/animation/animation_photos.php?id=" + screenshotId.toString()).get();
+                    lastScreenshotsId = screenshotId;
+                    return screenshotsDoc;
+                } catch (IOException e) {
+                    System.err.println("Не удалось закачать страницу скриншотов, id: " + screenshotId);
+                    System.out.println("Повторяю попытку ...");
+                    ex = e;
+                }
+            }
+            throw ex;
+        }
+    }
+
+    private String encodingToUtf(String stringInCi1215) throws UnsupportedEncodingException {
+
+        return new String(stringInCi1215.getBytes("windows-1251"), "UTF-8");
+    }
+
 
     //Логика парсера
     private String parseTitle(Document doc) throws Exception {
@@ -231,14 +262,14 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
 
         String[] info = parseInfo(doc);
 
-        return info[2].substring(5);
+        return encodingToUtf(info[0].substring(5));
     }
 
     private AnimeTypes parseType(Document doc) throws Exception {
 
         String[] info = parseInfo(doc);
 
-        String typeInfo = info[1].substring(5);
+        String typeInfo = info[0].substring(5);
 
         if (typeInfo.contains("ТВ")) {
             return AnimeTypes.TV;
@@ -270,7 +301,7 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
             resualt = elements.first().text();
         }
 
-        return resualt;
+        return encodingToUtf(resualt);
     }
 
     private List<AnimeGenres> parseGenre(Document doc) throws Exception {
@@ -280,71 +311,70 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
 
         String genreText = info[6].substring(6);
 
-        if (genreText.contains("боевые искусства")) {
+        if (genreText.contains("боевые искусства"))
             resualt.add(AnimeGenres.Martial_Arts);
-        } else if (genreText.contains("война")) {
+        if (genreText.contains("война"))
             resualt.add(AnimeGenres.Military);
-        } else if (genreText.contains("детектив")) {
+        if (genreText.contains("детектив"))
             resualt.add(AnimeGenres.Detective);
-        } else if (genreText.contains("драма")) {
+        if (genreText.contains("драма"))
             resualt.add(AnimeGenres.Drama);
-        } else if (genreText.contains("кодомо")) {
+        if (genreText.contains("кодомо"))
             resualt.add(AnimeGenres.Children);
-        } else if (genreText.contains("комедия")) {
+        if (genreText.contains("комедия"))
             resualt.add(AnimeGenres.Comedy);
-        } else if (genreText.contains("махо-сёдзё")) {
+        if (genreText.contains("махо-сёдзё"))
             resualt.add(AnimeGenres.Magical_girl);
-        } else if (genreText.contains("меха")) {
+        if (genreText.contains("меха"))
             resualt.add(AnimeGenres.Mecha);
-        } else if (genreText.contains("мистика")) {
+        if (genreText.contains("мистика"))
             resualt.add(AnimeGenres.Supernatural);
-        } else if (genreText.contains("музыкальный")) {
+        if (genreText.contains("музыкальный"))
             resualt.add(AnimeGenres.Music);
-        } else if (genreText.contains("образовательный")) {
+        if (genreText.contains("образовательный"))
             resualt.add(AnimeGenres.Educational);
-        } else if (genreText.contains("пародия")) {
+        if (genreText.contains("пародия"))
             resualt.add(AnimeGenres.Parody);
-        } else if (genreText.contains("повседневность")) {
+        if (genreText.contains("повседневность"))
             resualt.add(AnimeGenres.Slice_of_Life);
-        } else if (genreText.contains("приключения")) {
+        if (genreText.contains("приключения"))
             resualt.add(AnimeGenres.Adventure);
-        } else if (genreText.contains("романтика")) {
+        if (genreText.contains("романтика"))
             resualt.add(AnimeGenres.Romance);
-        } else if (genreText.contains("самурайский боевик")) {
+        if (genreText.contains("самурайский боевик"))
             resualt.add(AnimeGenres.Samurai);
-        } else if (genreText.contains("сёдзё")) {
+        if (genreText.contains("сёдзё"))
             resualt.add(AnimeGenres.Shoujo);
-        } else if (genreText.contains("сёдзё-ай")) {
+        if (genreText.contains("сёдзё-ай"))
             resualt.add(AnimeGenres.Shoujo_Ai);
-        } else if (genreText.contains("сёнэн")) {
+        if (genreText.contains("сёнэн"))
             resualt.add(AnimeGenres.Shounen);
-        } else if (genreText.contains("сёнэн-ай")) {
+        if (genreText.contains("сёнэн-ай"))
             resualt.add(AnimeGenres.Shounen_Ai);
-        } else if (genreText.contains("сказка")) {
+        if (genreText.contains("сказка"))
             resualt.add(AnimeGenres.Story);
-        } else if (genreText.contains("спорт")) {
+        if (genreText.contains("спорт"))
             resualt.add(AnimeGenres.Sports);
-        } else if (genreText.contains("триллер")) {
+        if (genreText.contains("триллер"))
             resualt.add(AnimeGenres.Thriller);
-        } else if (genreText.contains("школа")) {
+        if (genreText.contains("школа"))
             resualt.add(AnimeGenres.School);
-        } else if (genreText.contains("фантастика")) {
+        if (genreText.contains("фантастика"))
             resualt.add(AnimeGenres.Fiction);
-        } else if (genreText.contains("фэнтези")) {
+        if (genreText.contains("фэнтези"))
             resualt.add(AnimeGenres.Fantasy);
-        } else if (genreText.contains("эротика")) {
+        if (genreText.contains("эротика"))
             resualt.add(AnimeGenres.Erotica);
-        } else if (genreText.contains("этти")) {
+        if (genreText.contains("этти"))
             resualt.add(AnimeGenres.Ecchi);
-        } else if (genreText.contains("ужасы")) {
+        if (genreText.contains("ужасы"))
             resualt.add(AnimeGenres.Horror);
-        } else if (genreText.contains("хентай")) {
+        if (genreText.contains("хентай"))
             resualt.add(AnimeGenres.Hentai);
-        } else if (genreText.contains("юри")) {
+        if (genreText.contains("юри"))
             resualt.add(AnimeGenres.Yuri);
-        } else if (genreText.contains("яой")) {
+        if (genreText.contains("яой"))
             resualt.add(AnimeGenres.Yaoi);
-        }
 
         if (resualt.isEmpty())
             throw new IOException("Не удалось спарсить жанр");
@@ -375,7 +405,7 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
                 resualt[4] = s;
             } else if (s.contains("Проголосовало:")) {
                 resualt[5] = s;
-            } else if (s.contains("Жанры:")) {
+            } else if (s.contains("Жанр:")) {
                 resualt[6] = s;
             }
         }
@@ -415,8 +445,9 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
         String[] info = parseInfo(doc);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.mm.yyyyy");
 
-        dataText = dateFormat.parse(info[2].substring(10, 20).replaceAll("??", "01"));
-        return Date.valueOf(new SimpleDateFormat("yyyyy-mm-dd").format(dataText));
+        dataText = dateFormat.parse(info[2].substring(10, 20).replace("??", "01"));
+        dateFormat.applyPattern("yyyy-mm-dd");
+        return Date.valueOf(dateFormat.format(dataText));
     }
 
     private Date parseYearEnd(Document doc) throws Exception {
@@ -425,10 +456,11 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.mm.yyyyy");
 
         if (info[2].contains("Выпуск:")) {
-            dataText = dateFormat.parse(info[2].substring(24).replaceAll("??", "01"));
-            return Date.valueOf(new SimpleDateFormat("yyyyy-mm-dd").format(dataText));
+            dataText = dateFormat.parse(info[2].substring(24).replace("??", "01"));
+            dateFormat.applyPattern("yyyy-mm-dd");
+            return Date.valueOf(dateFormat.format(dataText));
         } else {
-            return Date.valueOf("01.01.1000");
+            return Date.valueOf("1000-01-01");
         }
     }
 
@@ -461,7 +493,7 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
             id = id.substring(id.indexOf("id=") + 3);
 
             temp_connection.setConnectionId(Integer.parseInt(id));
-            temp_connection.setInfo(elements.get(i).parent().ownText().substring(2));
+            temp_connection.setInfo(encodingToUtf(elements.get(i).parent().ownText().substring(2)));
             resualt.add(temp_connection);
         }
 
@@ -501,14 +533,20 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
         return resualt;
     }
 
-    public List<String> parseOtherTitle(Document doc) {
+    public List<String> parseOtherTitle(Document doc) throws UnsupportedEncodingException {
+        List<String> resualt;
         Element element = doc.select("font[color=#990000]").first().parent().parent().parent();
 
         String other_titles = element.toString().replaceAll("<br>", "@");
         other_titles = Jsoup.parse(other_titles).text();
         String[] allTitles = other_titles.split("@");
+        resualt = Arrays.asList(Arrays.copyOfRange(allTitles, 1, allTitles.length));
 
-        return Arrays.asList(Arrays.copyOfRange(allTitles, 1, allTitles.length));
+        for (int i = 0; i < resualt.size(); i++) {
+            resualt.set(i, encodingToUtf(resualt.get(i)));
+        }
+
+        return resualt;
     }
 
     private int parseStudioId(Document doc) {

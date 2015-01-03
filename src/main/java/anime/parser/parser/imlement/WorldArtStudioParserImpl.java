@@ -1,13 +1,16 @@
 package anime.parser.parser.imlement;
 
-import anime.parser.general.Factory;
-import anime.parser.parser.DirectedParser;
 import anime.parser.parser.StudioParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class WorldArtStudioParserImpl implements StudioParser {
 
@@ -26,7 +29,7 @@ public class WorldArtStudioParserImpl implements StudioParser {
                     lastDocId = studioId;
                     return studioDoc;
                 } catch (IOException e) {
-                    System.err.println("Не удалось закачать страницу id: " + studioId);
+                    System.err.println("Не удалось закачать страницу студии, id: " + studioId);
                     System.out.println("Повторяю попытку ...");
                     ex = e;
                 }
@@ -78,21 +81,62 @@ public class WorldArtStudioParserImpl implements StudioParser {
 
     //Логика парсера
     private String parseResuorces(Document doc) {
-        return null;
+        Elements elements = doc.select("a");
+
+        for (Element element :  elements.select("a")){
+
+            if ("Википедия".equals(element.text())) return element.attr("href");
+            if ("Wikipedia".equals(element.text())) return element.attr("href");
+            if ("AniDB".equals(element.text())) return element.attr("href");
+            if ("MyAnimeList".equals(element.text())) return element.attr("href");
+
+        }
+
+        return "";
     }
 
     private String parseLogo(Document doc) {
-        return null;
+        Element description = doc.select("img").get(0);
+        Document doc2 = description.ownerDocument();
+        Elements allImages = doc2.select("img[src~=(?i)\\.(jpe?g)]");
+
+        String link = allImages.attr("src");
+
+        return link;
     }
 
-    private Date parseDate(Document doc) {
+    private Date parseDate(Document doc) throws Exception {
 
+        Elements elements = doc.select("tbody");
 
+        for (Element element : elements) {
+            if (element.text().contains("Дата основания:")) {
+                String dataText = element.text();
+                String data = dataText.substring(dataText.indexOf("Дата основания:") + 16, dataText.indexOf(" г."));
 
-        return null;
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd.mm.yyyyy");
+
+                if (data.length() == 7) {
+                    data = "01." + data;
+                }
+
+                java.util.Date date = dateFormat.parse(data);
+                dateFormat.applyPattern("yyyy-mm-dd");
+                String resualt = dateFormat.format(date);
+
+                return Date.valueOf(resualt);
+            }
+        }
+
+        throw new Exception("Не удалось спарсить дату");
     }
 
-    private String parseName(Document doc) {
-        return doc.title();
+    private String parseName(Document doc) throws UnsupportedEncodingException {
+        return encodingToUtf(doc.title());
+    }
+
+    private String encodingToUtf(String stringInCi1215) throws UnsupportedEncodingException {
+
+        return new String(stringInCi1215.getBytes("windows-1251"), "UTF-8");
     }
 }

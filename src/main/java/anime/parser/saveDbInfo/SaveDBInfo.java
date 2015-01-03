@@ -12,20 +12,20 @@ import anime.parser.parser.struct.AnimeConnection;
 import anime.parser.parser.struct.AnimeResources;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SaveDBInfo {
 
-    StudioEntity studioEntity;
-    DirectedEntity directedEntity;
-    YearProductionEntity yearProductionEntity;
-    AnimesEntity animesEntity;
-    List<OtherTitleEntity> otherTitleEntity;
-    List<AnimeGenreEntity> animeGenreEntitys;
-    List<AnimeResourcesEntity> animeResourcesEntitys;
-    List<ScreenshotsEntity> screenshotsEntitys;
-    List<ConnectionsEntity> connectionsEntities;
-
+    StudioEntity studioEntity = new StudioEntity();
+    DirectedEntity directedEntity = new DirectedEntity();
+    YearProductionEntity yearProductionEntity = new YearProductionEntity();
+    AnimesEntity animesEntity = new AnimesEntity();
+    List<OtherTitleEntity> otherTitleEntity = new ArrayList<>();
+    List<AnimeGenreEntity> animeGenreEntitys = new ArrayList<>();
+    List<AnimeResourcesEntity> animeResourcesEntitys = new ArrayList<>();
+    List<ScreenshotsEntity> screenshotsEntitys = new ArrayList<>();
+    List<ConnectionsEntity> connectionsEntities = new ArrayList<>();
 
     Factory factory = Factory.getInstance();
 
@@ -36,9 +36,16 @@ public class SaveDBInfo {
     AnimeInfoParser animeInfoParser = factory.getAnimeParser();
 
 
+
+
     public void saveAll() throws SQLException {
-        animeDao.setStudioByStudioId(studioEntity);
-        animeDao.setDirectedByDirectedId(directedEntity);
+
+        if (animeDao.getStudioEntityById(studioEntity.getId()) == null)
+            animeDao.setStudioByStudioId(studioEntity);
+
+        if (animeDao.getDirectedEntityById(directedEntity.getId()) == null)
+            animeDao.setDirectedByDirectedId(directedEntity);
+
         animeDao.setYearProductionByYearProductionId(yearProductionEntity);
         animeDao.setAnimeInfoById(animesEntity);
 
@@ -88,8 +95,7 @@ public class SaveDBInfo {
             animesEntity.setId(animesId);
             animesEntity.setMainImg(animeInfoParser.getMainImgById(animesId));
             animesEntity.setMainTitle(animeInfoParser.getMainTitleById(animesId));
-            animesEntity.setTypesByAnimeTypeId(animeDao.
-                    getTypesEntityById(animeInfoParser.getTypeById(animesId).ordinal() + 1));
+            animesEntity.setTypesByAnimeTypeId(animeDao.getTypesEntityById(animeInfoParser.getTypeById(animesId).ordinal() + 1));
             animesEntity.setReview(animeInfoParser.getReviewById(animesId));
             animesEntity.setAverage(animeInfoParser.getAverageById(animesId));
             animesEntity.setRanced(animeInfoParser.getRancedById(animesId));
@@ -118,7 +124,6 @@ public class SaveDBInfo {
             for (AnimeGenres genre : animeInfoParser.getGenresById(animeId)) {
                 AnimeGenreEntity tempAnimeGenre = new AnimeGenreEntity();
 
-                tempAnimeGenre.setId(animeId);
                 tempAnimeGenre.setAnimesByAnimesId(animesEntity);
                 tempAnimeGenre.setGenresByGenresId(animeDao.getGenresEntityByID(genre.ordinal() + 1));
 
@@ -141,10 +146,10 @@ public class SaveDBInfo {
     }
 
     private void initScreenshots(int animeId) throws Exception{
-            for (String screenshotsUrl : animeInfoParser.getScreenshotsById(animeId)){
+            for (String screenshotUrl : animeInfoParser.getScreenshotsById(animeId)){
                 ScreenshotsEntity tempScreenshots = new ScreenshotsEntity();
 
-                tempScreenshots.setUrl(screenshotsUrl);
+                tempScreenshots.setUrl(screenshotUrl);
                 tempScreenshots.setAnimesByAnimesId(animesEntity);
 
                 screenshotsEntitys.add(tempScreenshots);

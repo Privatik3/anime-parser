@@ -229,18 +229,19 @@ public class AnimesEntity {
         sb.append("ID: ").append(id).append("\n");
         sb.append("Main title:\n");
         sb.append("     ").append(mainTitle).append("\n");
-        sb.append("Other titles:\n");
+
+        /*sb.append("Other titles:\n");
 
         for (OtherTitleEntity title : otherTitlesById) {
             sb.append("     ").append(title.getName()).append("\n");
-        }
+        }*/
 
-        sb.append("Genres:\n");
+        /*sb.append("Genres:\n");
 
         for (AnimeGenreEntity genreEntity : animeGenresById){
             sb.append("     ").append(genreEntity.getGenresByGenresId().getName()).append("\n");
         }
-        sb.append("\n");
+        sb.append("\n");*/
 
         sb.append("Type: ").append(typeInfo).append("\n");
 
@@ -265,21 +266,21 @@ public class AnimesEntity {
         sb.append("     Logo: ").append(studioByStudioId.getLogo()).append("\n");
         sb.append("     Wiki: ").append(directedByDirectedId.getResources()).append("\n");
 
-        sb.append("Screenshots: ").append(screenshotsesById.size()).append("\n");
+        //sb.append("Screenshots: ").append(screenshotsesById.size()).append("\n");
 
-        sb.append("Connections:\n");
+        /*sb.append("Connections:\n");
 
         for (ConnectionsEntity connectionsEntity : connectionsesById){
             sb.append("     ").append(connectionsEntity.getIdConnection()).append(" ")
                     .append(connectionsEntity.getText()).append("\n");
-        }
+        }*/
 
-        sb.append("AnimeResources:\n");
+        /*sb.append("AnimeResources:\n");
 
         for (AnimeResourcesEntity animeResourcesEntity : animeResourcesesById){
             sb.append("     Name: ").append(animeResourcesEntity.getResourcesNameByResourcesNameId().getName())
                     .append(" URL: ").append(animeResourcesEntity.getUrl()).append("\n");
-        }
+        }*/
 
         sb.append("-----------------------------------------------------------------------------------");
 

@@ -216,7 +216,7 @@ public class AnimeDaoImpl implements AnimeDao{
         AnimeGenreEntity animeGenreEntity = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            animeGenreEntity = (AnimeGenreEntity) session.get(AnimesEntity.class, getAnimeGenreEntityById);
+            animeGenreEntity = (AnimeGenreEntity) session.get(AnimeGenreEntity.class, getAnimeGenreEntityById);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -233,7 +233,7 @@ public class AnimeDaoImpl implements AnimeDao{
         AnimeResourcesEntity animeResourcesEntity = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            animeResourcesEntity = (AnimeResourcesEntity) session.get(AnimesEntity.class, getAnimeResourcesEntityByID);
+            animeResourcesEntity = (AnimeResourcesEntity) session.get(AnimeResourcesEntity.class, getAnimeResourcesEntityByID);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -250,7 +250,7 @@ public class AnimeDaoImpl implements AnimeDao{
         ConnectionsEntity connectionsEntity = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            connectionsEntity = (ConnectionsEntity) session.get(AnimesEntity.class, getConnectionsEntityById);
+            connectionsEntity = (ConnectionsEntity) session.get(ConnectionsEntity.class, getConnectionsEntityById);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -267,7 +267,7 @@ public class AnimeDaoImpl implements AnimeDao{
         DirectedEntity directedEntity = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            directedEntity = (DirectedEntity) session.get(AnimesEntity.class, getDirectedEntityById);
+            directedEntity = (DirectedEntity) session.get(DirectedEntity.class, getDirectedEntityById);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -284,7 +284,7 @@ public class AnimeDaoImpl implements AnimeDao{
         GenresEntity genresEntity = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            genresEntity = (GenresEntity) session.get(AnimesEntity.class, getGenresEntityById);
+            genresEntity = (GenresEntity) session.get(GenresEntity.class, getGenresEntityById);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -301,7 +301,7 @@ public class AnimeDaoImpl implements AnimeDao{
         OtherTitleEntity otherTitleEntity = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            otherTitleEntity = (OtherTitleEntity) session.get(AnimesEntity.class, getOtherTitleEntityById);
+            otherTitleEntity = (OtherTitleEntity) session.get(OtherTitleEntity.class, getOtherTitleEntityById);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -318,7 +318,7 @@ public class AnimeDaoImpl implements AnimeDao{
         ResourcesNameEntity resourcesNameEntity = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            resourcesNameEntity = (ResourcesNameEntity) session.get(AnimesEntity.class, getResourcesNameById);
+            resourcesNameEntity = (ResourcesNameEntity) session.get(ResourcesNameEntity.class, getResourcesNameById);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -335,7 +335,7 @@ public class AnimeDaoImpl implements AnimeDao{
         ScreenshotsEntity screenshotsEntity = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            screenshotsEntity = (ScreenshotsEntity) session.get(AnimesEntity.class, getScreenshotsEntityById);
+            screenshotsEntity = (ScreenshotsEntity) session.get(ScreenshotsEntity.class, getScreenshotsEntityById);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -352,7 +352,7 @@ public class AnimeDaoImpl implements AnimeDao{
         StudioEntity studioEntity = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            studioEntity = (StudioEntity) session.get(AnimesEntity.class, getStudioEntityById);
+            studioEntity = (StudioEntity) session.get(StudioEntity.class, getStudioEntityById);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -369,7 +369,7 @@ public class AnimeDaoImpl implements AnimeDao{
         TypesEntity typesEntity = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            typesEntity = (TypesEntity) session.get(AnimesEntity.class, getTypesEntityById);
+            typesEntity = (TypesEntity) session.get(TypesEntity.class, getTypesEntityById);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -386,7 +386,7 @@ public class AnimeDaoImpl implements AnimeDao{
         YearProductionEntity yearProductionEntity = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            yearProductionEntity = (YearProductionEntity) session.get(AnimesEntity.class, getYearProductionEntityById);
+            yearProductionEntity = (YearProductionEntity) session.get(YearProductionEntity.class, getYearProductionEntityById);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
