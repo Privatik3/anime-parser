@@ -8,7 +8,7 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         SaveDBInfo saver = new SaveDBInfo();
-        int animeId = 6972;
+        int animeId = 310;
 
         try {
             saver.saveAnimeToDb(animeId);

@@ -41,48 +41,80 @@ public class SaveDBInfo {
 
     private void saveAll() throws SQLException {
 
+        long start = System.currentTimeMillis();
         if (studioEntity != null && animeDao.getStudioEntityById(studioEntity.getId()) == null)
             animeDao.setStudioByStudioId(studioEntity);
+        long end = System.currentTimeMillis();
+        System.out.println("Студию закачало за " + ((end - start) / 1000d) + " секунд");
 
+
+        start = System.currentTimeMillis();
         if (animeDao.getDirectedEntityById(directedEntity.getId()) == null)
             animeDao.setDirectedByDirectedId(directedEntity);
+        end = System.currentTimeMillis();
+        System.out.println("Рижессёра закачало за " + ((end - start) / 1000d) + " секунд");
 
+
+        start = System.currentTimeMillis();
         animeDao.setYearProductionByYearProductionId(yearProductionEntity);
-        animeDao.setAnimeInfoById(animesEntity);
+        end = System.currentTimeMillis();
+        System.out.println("Год производства закачало за " + ((end - start) / 1000d) + " секунд");
 
+
+        start = System.currentTimeMillis();
+        animeDao.setAnimeInfoById(animesEntity);
+        end = System.currentTimeMillis();
+        System.out.println("Аниме закачало за " + ((end - start) / 1000d) + " секунд");
+
+
+        start = System.currentTimeMillis();
         for (AnimeGenreEntity animeGenreEntity : animeGenreEntitys){
             animeDao.setAnimesGanresById(animeGenreEntity);
         }
+        end = System.currentTimeMillis();
+        System.out.println("Жанры закачало за " + ((end - start) / 1000d) + " секунд");
 
+
+        start = System.currentTimeMillis();
         for (AnimeResourcesEntity animeResourcesEntity : animeResourcesEntitys){
             animeDao.setAnimeResourcesesById(animeResourcesEntity);
         }
+        end = System.currentTimeMillis();
+        System.out.println("Ресурсы аниме закачало за " + ((end - start) / 1000d) + " секунд");
 
+
+        start = System.currentTimeMillis();
         for (ScreenshotsEntity screenshotsEntity : screenshotsEntitys){
             animeDao.setScreenshotsesById(screenshotsEntity);
         }
+        end = System.currentTimeMillis();
+        System.out.println("Скриншоты закачало за " + ((end - start) / 1000d) + " секунд");
 
+
+        start = System.currentTimeMillis();
         for (OtherTitleEntity otherTitle : otherTitleEntity){
             animeDao.setSecondNameById(otherTitle);
         }
+        end = System.currentTimeMillis();
+        System.out.println("Альтернативные тайтлы закачало за " + ((end - start) / 1000d) + " секунд");
 
+
+        start = System.currentTimeMillis();
         for (ConnectionsEntity connectionsEntity : connectionsEntities){
             animeDao.setConnectionsesById(connectionsEntity);
         }
-
+        end = System.currentTimeMillis();
+        System.out.println("Конекты закачало за " + ((end - start) / 1000d) + " секунд");
     }
 
     public boolean saveAnimeToDb(int animeId) throws Exception {
 
-        long start = System.currentTimeMillis();
         initAll(animeId);
-        long end = System.currentTimeMillis();
-        System.out.println("Инициальзация прошла за " + ((end - start) / 1000) + " секунд");
-
-        start = System.currentTimeMillis();
+        long start = System.currentTimeMillis();
         saveAll();
-        end = System.currentTimeMillis();
-        System.out.println("Сохранения в бузу прошло за " + ((end - start) / 1000) + " секунд");
+        long end = System.currentTimeMillis();
+        System.out.println("Общее время закачки " + ((end - start) / 1000d) + " секунд");
+
 
         return true;
     }
