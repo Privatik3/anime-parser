@@ -17,12 +17,16 @@ public class App {
             try {
                 saver.saveAnimeToDb(animeId);
                 System.out.println("Аниме с id: " + animeId + " успешно сохранено в базу");
+                System.out.println("-----------------------------------------------------------------------");
+                System.out.println();
             } catch (Exception e) {
                 System.err.println("Не удалось сохранить аниме с id:" + animeId);
                 e.printStackTrace();
+                HibernateUtil.closeSession();
+                return;
             }
         }
-            HibernateUtil.closeSession();
+        HibernateUtil.closeSession();
 
     }
 }
