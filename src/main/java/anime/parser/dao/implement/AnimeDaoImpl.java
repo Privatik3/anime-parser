@@ -6,6 +6,7 @@ import anime.parser.utill.HibernateUtil;
 import org.hibernate.Session;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class AnimeDaoImpl implements AnimeDao{
 
@@ -184,7 +185,10 @@ public class AnimeDaoImpl implements AnimeDao{
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.save(screenshotsesById);
+            //session.save(screenshotsesById);
+            session.createQuery(String.format("INSERT INTO screenshots (url, animes_id) VALUES ('%s', %d);",
+                    screenshotsesById.getUrl(), screenshotsesById.getAnimesByAnimesId().getId()));
+
             session.getTransaction().commit();
         }catch (Exception e){
             e.printStackTrace();
@@ -192,6 +196,29 @@ public class AnimeDaoImpl implements AnimeDao{
             if ((session != null) && (session.isOpen())) session.close();
         }
     }
+
+    @Override
+    public void setAllScreenshotses(List<ScreenshotsEntity> screenshotses) throws SQLException {
+        String request = "INSERT INTO screenshots (url, animes_id)";
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            for (ScreenshotsEntity screenshot : screenshotses) {
+
+                String values = String.format("VALUES ('%s', '%d');",
+                        screenshot.getUrl(), screenshot.getAnimesByAnimesId().getId());
+
+                session.beginTransaction();
+                session.createSQLQuery(request + values);
+                session.getTransaction().commit();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if ((session != null) && (session.isOpen())) session.close();
+        }
+    }
+
 
     @Override
     public AnimesEntity getAnimesByID(Integer getAnimesById) throws SQLException {

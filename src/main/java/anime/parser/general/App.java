@@ -10,7 +10,7 @@ public class App {
 
         SaveDBInfo saver;
 
-        for (int i = 1; i < 500; i++) {
+        for (int i = 310; i < 311; i++) {
             int animeId = i;
 
             saver = new SaveDBInfo();

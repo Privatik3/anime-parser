@@ -84,9 +84,10 @@ public class SaveDBInfo {
 
 
         start = System.currentTimeMillis();
-        for (ScreenshotsEntity screenshotsEntity : screenshotsEntitys){
+        /*for (ScreenshotsEntity screenshotsEntity : screenshotsEntitys){
             animeDao.setScreenshotsesById(screenshotsEntity);
-        }
+        }*/
+        animeDao.setAllScreenshotses(screenshotsEntitys);
         end = System.currentTimeMillis();
         System.out.println("Скриншоты закачало за " + ((end - start) / 1000d) + " секунд");
 

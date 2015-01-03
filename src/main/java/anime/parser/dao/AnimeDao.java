@@ -3,6 +3,7 @@ package anime.parser.dao;
 import anime.parser.domain.*;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public interface AnimeDao {
 
@@ -20,6 +21,7 @@ public interface AnimeDao {
     public void setYearProductionByYearProductionId(YearProductionEntity yearProductionByYearProductionId)throws SQLException;
     public void setConnectionsesById(ConnectionsEntity connectionsesById)throws SQLException;
     public void setScreenshotsesById(ScreenshotsEntity screenshotsesById)throws SQLException;
+    public void setAllScreenshotses(List<ScreenshotsEntity> screenshotses)throws SQLException;
 
     // методы для загрузки данных
 
