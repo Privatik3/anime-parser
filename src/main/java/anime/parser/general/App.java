@@ -8,11 +8,12 @@ public class App {
     public static void main(String[] args) throws Exception {
 
 
-        SaveDBInfo saver = new SaveDBInfo();
+        SaveDBInfo saver;
 
         for (int i = 1; i < 500; i++) {
             int animeId = i;
 
+            saver = new SaveDBInfo();
 
             try {
                 saver.saveAnimeToDb(animeId);
