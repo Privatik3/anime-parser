@@ -12,7 +12,7 @@ public class App {
         SaveDBInfo saver;
         Session session;
 
-        for (int i = 309; i < 311; i++) {
+        for (int i = 202; i < 500; i++) {
             int animeId = i;
 
             saver = new SaveDBInfo();

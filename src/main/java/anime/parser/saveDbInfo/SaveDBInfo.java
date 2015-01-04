@@ -68,23 +68,17 @@ public class SaveDBInfo {
 
     private void initAll(int animeId, Session session) throws Exception {
         initStudio(animeId);
-        Thread.sleep(500);
+        Thread.sleep(1500);
         initDirected(animeId);
-        Thread.sleep(500);
+        Thread.sleep(1500);
         initYearProduction(animeId);
-        Thread.sleep(500);
         initAnimeInfo(animeId, session);
-        Thread.sleep(500);
         initAnimeGenre(animeId, session);
-        Thread.sleep(500);
         initAnimeResouces(animeId, session);
-        Thread.sleep(500);
+        Thread.sleep(1500);
         initScreenshots(animeId);
-        Thread.sleep(500);
         initOtherTitles(animeId);
-        Thread.sleep(500);
         initConnections(animeId);
-        Thread.sleep(500);
     }
 
     private void initAnimeInfo(int animesId, Session session) throws Exception {
