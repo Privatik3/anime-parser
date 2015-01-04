@@ -27,7 +27,7 @@
             <column name="voted" sql-type="int"/>
         </property>
         <property name="typeInfo">
-            <column name="type_info" sql-type="varchar" length="45" not-null="true"/>
+            <column name="type_info" sql-type="varchar" length="255" not-null="true"/>
         </property>
         <many-to-one name="directedByDirectedId" class="anime.parser.domain.DirectedEntity">
             <column name="directed_id" />
