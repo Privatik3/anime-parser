@@ -11,6 +11,8 @@ import anime.parser.parser.enums.AnimeGenres;
 import anime.parser.parser.struct.AnimeConnection;
 import anime.parser.parser.struct.AnimeResources;
 import anime.parser.utill.HibernateUtil;
+import com.sun.deploy.security.SecureStaticVersioning;
+import org.hibernate.Session;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -39,104 +41,57 @@ public class SaveDBInfo {
 
 
 
-    private void saveAll() throws SQLException {
+    private void saveAll(Session session) throws SQLException {
 
-        long start = System.currentTimeMillis();
-        if (studioEntity != null && animeDao.getStudioEntityById(studioEntity.getId()) == null)
-            animeDao.setStudioByStudioId(studioEntity);
-        long end = System.currentTimeMillis();
-        System.out.println("Студию закачало за " + ((end - start) / 1000d) + " секунд");
+        if (studioEntity != null && animeDao.getStudioEntityById(studioEntity.getId(), session) == null)
+            animeDao.setStudioByStudioId(studioEntity, session);
 
+        if (directedEntity != null && animeDao.getDirectedEntityById(directedEntity.getId(), session) == null)
+            animeDao.setDirectedByDirectedId(directedEntity, session);
 
-        start = System.currentTimeMillis();
-        if (animeDao.getDirectedEntityById(directedEntity.getId()) == null)
-            animeDao.setDirectedByDirectedId(directedEntity);
-        end = System.currentTimeMillis();
-        System.out.println("Рижессёра закачало за " + ((end - start) / 1000d) + " секунд");
-
-
-        start = System.currentTimeMillis();
-        animeDao.setYearProductionByYearProductionId(yearProductionEntity);
-        end = System.currentTimeMillis();
-        System.out.println("Год производства закачало за " + ((end - start) / 1000d) + " секунд");
-
-
-        start = System.currentTimeMillis();
-        animeDao.setAnimeInfoById(animesEntity);
-        end = System.currentTimeMillis();
-        System.out.println("Аниме закачало за " + ((end - start) / 1000d) + " секунд");
-
-
-        start = System.currentTimeMillis();
-        for (AnimeGenreEntity animeGenreEntity : animeGenreEntitys){
-            animeDao.setAnimesGanresById(animeGenreEntity);
-        }
-        end = System.currentTimeMillis();
-        System.out.println("Жанры закачало за " + ((end - start) / 1000d) + " секунд");
-
-
-        start = System.currentTimeMillis();
-        for (AnimeResourcesEntity animeResourcesEntity : animeResourcesEntitys){
-            animeDao.setAnimeResourcesesById(animeResourcesEntity);
-        }
-        end = System.currentTimeMillis();
-        System.out.println("Ресурсы аниме закачало за " + ((end - start) / 1000d) + " секунд");
-
-
-        start = System.currentTimeMillis();
-        /*for (ScreenshotsEntity screenshotsEntity : screenshotsEntitys){
-            animeDao.setScreenshotsesById(screenshotsEntity);
-        }*/
-        animeDao.setAllScreenshotses(screenshotsEntitys);
-        end = System.currentTimeMillis();
-        System.out.println("Скриншоты закачало за " + ((end - start) / 1000d) + " секунд");
-
-
-        start = System.currentTimeMillis();
-        for (OtherTitleEntity otherTitle : otherTitleEntity){
-            animeDao.setSecondNameById(otherTitle);
-        }
-        end = System.currentTimeMillis();
-        System.out.println("Альтернативные тайтлы закачало за " + ((end - start) / 1000d) + " секунд");
-
-
-        start = System.currentTimeMillis();
-        for (ConnectionsEntity connectionsEntity : connectionsEntities){
-            animeDao.setConnectionsesById(connectionsEntity);
-        }
-        end = System.currentTimeMillis();
-        System.out.println("Конекты закачало за " + ((end - start) / 1000d) + " секунд");
+        animeDao.setYearProductionByYearProductionId(yearProductionEntity, session);
+        animeDao.setAnimeInfoById(animesEntity, session);
+        animeDao.setAllGenres(animeGenreEntitys, session);
+        animeDao.setAllAnimeResources(animeResourcesEntitys, session);
+        animeDao.setAllScreenshotses(screenshotsEntitys, session);
+        animeDao.setAllOtherTitles(otherTitleEntity, session);
+        animeDao.setAllConnections(connectionsEntities, session);
     }
 
-    public boolean saveAnimeToDb(int animeId) throws Exception {
+    public boolean saveAnimeToDb(int animeId, Session session) throws Exception {
 
-        initAll(animeId);
-        long start = System.currentTimeMillis();
-        saveAll();
-        long end = System.currentTimeMillis();
-        System.out.println("Общее время закачки " + ((end - start) / 1000d) + " секунд");
-
+        initAll(animeId, session);
+        saveAll(session);
 
         return true;
     }
 
-    private void initAll(int animeId) throws Exception {
-        initStudio(animeInfoParser.getStudioIdById(animeId));
-        initDirected(animeInfoParser.getDirectedIdById(animeId));
+    private void initAll(int animeId, Session session) throws Exception {
+        initStudio(animeId);
+        Thread.sleep(500);
+        initDirected(animeId);
+        Thread.sleep(500);
         initYearProduction(animeId);
-        initAnimeInfo(animeId);
-        initAnimeGenre(animeId);
-        initAnimeResouces(animeId);
+        Thread.sleep(500);
+        initAnimeInfo(animeId, session);
+        Thread.sleep(500);
+        initAnimeGenre(animeId, session);
+        Thread.sleep(500);
+        initAnimeResouces(animeId, session);
+        Thread.sleep(500);
         initScreenshots(animeId);
+        Thread.sleep(500);
         initOtherTitles(animeId);
+        Thread.sleep(500);
         initConnections(animeId);
+        Thread.sleep(500);
     }
 
-    private void initAnimeInfo(int animesId) throws Exception {
+    private void initAnimeInfo(int animesId, Session session) throws Exception {
         animesEntity.setId(animesId);
         animesEntity.setMainImg(animeInfoParser.getMainImgById(animesId));
         animesEntity.setMainTitle(animeInfoParser.getMainTitleById(animesId));
-        animesEntity.setTypesByAnimeTypeId(animeDao.getTypesEntityById(animeInfoParser.getTypeById(animesId).ordinal() + 1));
+        animesEntity.setTypesByAnimeTypeId(animeDao.getTypesEntityById(animeInfoParser.getTypeById(animesId).ordinal() + 1, session));
         animesEntity.setReview(animeInfoParser.getReviewById(animesId));
         animesEntity.setAverage(animeInfoParser.getAverageById(animesId));
         animesEntity.setRanced(animeInfoParser.getRancedById(animesId));
@@ -151,11 +106,17 @@ public class SaveDBInfo {
 
     }
 
-    private void initDirected(int directId) throws Exception{
-            directedEntity.setId(directId);
-            directedEntity.setName(directedParser.getDirectedNameById(directId));
-            directedEntity.setResources(directedParser.getDirectedResourcesById(directId));
+    private void initDirected(int animeId) throws Exception {
+        int directId = animeInfoParser.getDirectedIdById(animeId);
 
+        if (directId == 0) {
+            directedEntity = null;
+            return;
+        }
+
+        directedEntity.setId(directId);
+        directedEntity.setName(directedParser.getDirectedNameById(directId));
+        directedEntity.setResources(directedParser.getDirectedResourcesById(directId));
     }
 
     private void initYearProduction(int animeId) throws Exception{
@@ -164,25 +125,26 @@ public class SaveDBInfo {
             yearProductionEntity.setEnded(animeInfoParser.getYearEndById(animeId));
     }
 
-    private void initAnimeGenre(int animeId) throws Exception{
+    private void initAnimeGenre(int animeId, Session session) throws Exception {
+
             for (AnimeGenres genre : animeInfoParser.getGenresById(animeId)) {
                 AnimeGenreEntity tempAnimeGenre = new AnimeGenreEntity();
 
                 tempAnimeGenre.setAnimesByAnimesId(animesEntity);
-                tempAnimeGenre.setGenresByGenresId(animeDao.getGenresEntityByID(genre.ordinal() + 1));
+                tempAnimeGenre.setGenresByGenresId(animeDao.getGenresEntityByID(genre.ordinal() + 1, session));
 
                 animeGenreEntitys.add(tempAnimeGenre);
             }
 
     }
 
-    private void initAnimeResouces(int animeId) throws Exception{
+    private void initAnimeResouces(int animeId, Session session) throws Exception {
             for (AnimeResources resources : animeInfoParser.getResourcesById(animeId)){
                 AnimeResourcesEntity tempAnimeResoucesName = new AnimeResourcesEntity();
 
                 tempAnimeResoucesName.setAnimesByAnimesId(animesEntity);
                 tempAnimeResoucesName.setResourcesNameByResourcesNameId(
-                        animeDao.getResourcesNameEntityById(resources.getName().ordinal() + 1));
+                        animeDao.getResourcesNameEntityById(resources.getName().ordinal() + 1, session));
                 tempAnimeResoucesName.setUrl(resources.getUrl());
 
                 animeResourcesEntitys.add(tempAnimeResoucesName);

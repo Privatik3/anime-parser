@@ -30,7 +30,6 @@ public class WorldArtStudioParserImpl implements StudioParser {
                     return studioDoc;
                 } catch (IOException e) {
                     System.err.println("Не удалось закачать страницу студии, id: " + studioId);
-                    System.out.println("Повторяю попытку ...");
                     ex = e;
                 }
             }
@@ -109,26 +108,32 @@ public class WorldArtStudioParserImpl implements StudioParser {
 
         Elements elements = doc.select("tbody");
 
-        for (Element element : elements) {
-            if (element.text().contains("Дата основания:")) {
-                String dataText = element.text();
-                String data = dataText.substring(dataText.indexOf("Дата основания:") + 16, dataText.indexOf(" г."));
+        try {
+            for (Element element : elements) {
+                if (element.text().contains("Дата основания:")) {
+                    String dataText = element.text();
+                    String data = dataText.substring(dataText.indexOf("Дата основания:") + 16, dataText.indexOf(" г.")).replace("??", "01");
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd.mm.yyyyy");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.mm.yyyyy");
 
-                if (data.length() == 7) {
-                    data = "01." + data;
+                    if (data.length() == 7) {
+                        data = "01." + data;
+                    } else if (data.length() == 4)
+                        data = "01.01." + data;
+
+                    java.util.Date date = dateFormat.parse(data);
+                    dateFormat.applyPattern("yyyy-mm-dd");
+                    String resualt = dateFormat.format(date);
+
+                    return Date.valueOf(resualt);
                 }
-
-                java.util.Date date = dateFormat.parse(data);
-                dateFormat.applyPattern("yyyy-mm-dd");
-                String resualt = dateFormat.format(date);
-
-                return Date.valueOf(resualt);
             }
+            return Date.valueOf("1000-01-01");
+        } catch (Exception e) {
+            throw new Exception("Не удалось спарсить дату");
         }
 
-        throw new Exception("Не удалось спарсить дату");
+
     }
 
     private String parseName(Document doc) throws UnsupportedEncodingException {

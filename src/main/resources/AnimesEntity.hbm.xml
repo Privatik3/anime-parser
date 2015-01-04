@@ -30,7 +30,7 @@
             <column name="type_info" sql-type="varchar" length="45" not-null="true"/>
         </property>
         <many-to-one name="directedByDirectedId" class="anime.parser.domain.DirectedEntity">
-            <column name="directed_id" not-null="true"/>
+            <column name="directed_id" />
         </many-to-one>
         <many-to-one name="studioByStudioId" class="anime.parser.domain.StudioEntity">
             <column name="studio_id" />

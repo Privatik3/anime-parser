@@ -211,7 +211,6 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
                     return mainDoc;
                 } catch (IOException e) {
                     System.err.println("Не удалось закачать страницу id: " + animeId);
-                    System.out.println("Повторяю попытку ...");
                     ex = e;
                 }
             }
@@ -249,7 +248,12 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
 
         Element element = doc.select("img[src^=http://www.world-art.ru/animation/img]").first();
 
-        return element.attr("src");
+        if (element != null)
+            return element.attr("src");
+
+        return "";
+
+
     }
 
     private String parseTypeInfo(Document doc) throws Exception {
@@ -449,7 +453,7 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
         String[] info = parseInfo(doc);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.mm.yyyyy");
 
-        if (info[2].contains("Выпуск:")) {
+        if (info[2].contains("Выпуск:") && info[2].length() > 20) {
             dataText = dateFormat.parse(info[2].substring(24).replace("??", "01"));
             dateFormat.applyPattern("yyyy-mm-dd");
             return Date.valueOf(dateFormat.format(dataText));
@@ -560,8 +564,10 @@ public class WorldArtAnimeInfoParserInpl implements AnimeInfoParser {
         Elements element = loginform.select("a[href=http://www.world-art.ru/country.php?id=2]").first().parent().select("a[href^=http://www.world-art.ru/people.php?id=]");
 
         String directionUrl = element.attr("href");
-        String directedId = directionUrl.substring(directionUrl.indexOf("id=") + 3);
-
-        return Integer.parseInt(directedId);
+        if (!directionUrl.equals("")) {
+            return Integer.parseInt(directionUrl.substring(directionUrl.indexOf("id=") + 3));
+        } else {
+            return 0;
+        }
     }
 }

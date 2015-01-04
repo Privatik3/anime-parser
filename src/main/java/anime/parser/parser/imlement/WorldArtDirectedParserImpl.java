@@ -69,7 +69,6 @@ public class WorldArtDirectedParserImpl implements DirectedParser {
                     return directionDoc;
                 } catch (IOException e) {
                     System.err.println("Не удалось закачать страницу рижиссёра, id: " + directedId);
-                    System.out.println("Повторяю попытку ...");
                     ex = e;
                 }
             }

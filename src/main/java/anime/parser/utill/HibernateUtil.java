@@ -19,6 +19,11 @@ public class HibernateUtil {
         }
     }
 
+    public static void sessionFactoryClean() {
+        sessionFactory.close();
+        sessionFactory = new Configuration().configure().buildSessionFactory();
+    }
+
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
